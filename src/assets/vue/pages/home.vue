@@ -20,7 +20,7 @@
                 </f7-col>
             </f7-row>
             <f7-row>
-                <f7-col @click="goToPage('/sells/')">
+                <f7-col @click="goToPage('/sales/')">
                     <f7-card content="Sells"></f7-card>
                 </f7-col>
                 <f7-col>

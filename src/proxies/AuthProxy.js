@@ -22,8 +22,8 @@ class AuthProxy extends Proxy {
     const data = {
       username,
       password,
-      client_id: process.env.VUE_APP_API_CLIENT_ID,
-      client_secret: process.env.VUE_APP_API_CLIENT_SECRET,
+      client_id: 2,
+      client_secret: 'f1CciRmj0Wd0lRTFR972Iit2kC6gsQ6hkc9GIc1O',
       grant_type: 'password',
       scope: '',
     };

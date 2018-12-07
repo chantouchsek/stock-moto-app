@@ -1,5 +1,7 @@
 // Import Vue
 import Vue from 'vue'
+import Axios from 'axios'
+import store from '@/assets/vuex'
 
 // Import Framework7
 import Framework7 from 'framework7/framework7.esm.bundle.js';
@@ -28,6 +30,24 @@ import app from '@/app'
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue)
 
+Axios.defaults.baseURL = 'http://api-stock.test/'
+Axios.defaults.headers.common.Accept = 'application/json'
+
+Vue.config.debug = process.env.NODE_ENV !== 'production'
+
+// Bind Axios to Vue.
+Vue.$http = Axios
+Object.defineProperty(Vue.prototype, '$http', {
+  get () {
+    return Axios
+  }
+})
+
+store.dispatch('auth/check')
+
+if (store.state.auth.authenticated) {
+  store.dispatch('auth/fetchUser')
+}
 
 // Init Vue App
 export default new Vue({
@@ -59,8 +79,8 @@ document.addEventListener('deviceready', () => {
       return f7.closeModal();
     }
     // If we have a back button, we want it to go back
-    if ($f7router.history.length > 1) {
-      return $f7router.router.back();
+    if (this.$f7router.history.length > 1) {
+      return this.$f7router.router.back();
     }
     // Default to closing the app
     return window.navigator.app.exitApp();

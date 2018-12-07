@@ -2,7 +2,7 @@
     <f7-page>
         <f7-navbar title="New Sale" back-link="Back" sliding></f7-navbar>
         <f7-block-title>Add new sale</f7-block-title>
-        <f7-list no-hairlines-md>
+        <f7-list no-hairlines-md form>
             <f7-list-input
                     label="ID"
                     type="text"

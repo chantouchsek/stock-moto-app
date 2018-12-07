@@ -39,11 +39,9 @@ export const login = ({ commit }, payload) => {
       })
       // Fetch the user.
       store.dispatch('auth/fetchUser')
-      Vue.router.push({
-        name: 'Dashboard',
-      })
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e)
       store.dispatch('application/addAlert', {
         type: 'danger',
         message: 'Could not login'
@@ -62,10 +60,6 @@ export const logout = async ({ commit }) => {
   store.dispatch('application/addAlert', {
     type: 'success',
     message: 'Logout successful!'
-  })
-
-  Vue.router.push({
-    name: 'Login'
   })
 }
 /**
