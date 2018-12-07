@@ -38,7 +38,7 @@
         </f7-block>
         <f7-popover class="popover-menu">
             <f7-list>
-                <f7-list-item link="/login/" popover-close title="Login"></f7-list-item>
+                <f7-list-item @click="logout" title="Logout"></f7-list-item>
             </f7-list>
         </f7-popover>
     </f7-page>
@@ -49,6 +49,10 @@
     methods: {
       goToPage (page) {
         this.$f7router.navigate(page)
+      },
+      logout () {
+        this.$store.dispatch('auth/logout')
+        this.$f7router.navigate('/login/')
       }
     },
   };
