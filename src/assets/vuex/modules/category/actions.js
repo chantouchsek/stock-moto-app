@@ -36,6 +36,28 @@ const all = async ({ commit }, fn = null) => {
 }
 
 /**
+ * Action fired when all categories will be fetched.
+ *
+ * @param {function} commit Commit function to update the store.
+ * @param {function} fn     Callback to edit the parameters on the proxy.
+ */
+const reload = async ({ commit }, fn = null) => {
+  if (typeof fn === 'function') {
+    fn(proxy)
+  }
+
+  await proxy.all()
+    .then((response) => {
+      const data = {
+        categories: CategoryTransformer.fetchCollection(response.data),
+        pagination: PaginationTransformer.fetch(response.pagination)
+      }
+
+      commit(types.RELOAD, data)
+    })
+}
+
+/**
  * Action fired when an category will be created.
  *
  * @param {Object}   category  The category that will be created.
@@ -138,6 +160,7 @@ const destroyed = ({ commit }, category) => {
 
 export default {
   all,
+  reload,
   create,
   created,
   update,

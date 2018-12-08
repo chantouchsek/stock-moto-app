@@ -1,8 +1,10 @@
 <template>
     <f7-page
+            ptr
             infinite
             :infinite-preloader="showPreloader"
             @infinite="setQueryScroll"
+            @ptr:refresh="reloadCategory"
     >
         <f7-navbar back-link="Back" sliding>
             <f7-nav-title>Stock Moto</f7-nav-title>
@@ -135,9 +137,13 @@
       /**
        * Reload the resource
        */
-      reload () {
-        this.$store.dispatch('category/all')
-      },
+      reloadCategory: debounce(function (event, done) {
+        const self = this;
+        self.$store.dispatch('category/reload', (proxy) => {
+          proxy.removeParameters(['q', 'order', 'sort', 'limit', 'page'])
+        })
+        done()
+      }, 1000),
       /**
        * Delete the resource
        */
@@ -160,9 +166,6 @@
        */
       setQueryScroll: debounce(function () {
         const self = this
-        // if (!self.allowInfinite) return
-        // self.allowInfinite = false
-        // console.log(self.allowInfinite)
         if (self.currentPage < self.category.pagination.totalPages) {
           self.currentPage++
           return

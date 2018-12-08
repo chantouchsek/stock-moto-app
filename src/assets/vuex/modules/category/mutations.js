@@ -8,6 +8,7 @@
 import store from '@/assets/vuex'
 import {
   ALL,
+  RELOAD,
   CREATED,
   UPDATED,
   DESTROYED
@@ -23,6 +24,18 @@ export default {
    */
   [ALL] (state, { categories, pagination }) {
     categories.map((category) => state.all.push(category))
+    state.pagination = pagination
+  },
+
+  /**
+   * Mutation to update the store with the fetched categories.
+   *
+   * @param {Object} state      The current state of the store.
+   * @param {Array}  categories    The fetched categories.
+   * @param {Object} pagination The fetched pagination.
+   */
+  [RELOAD] (state, { categories, pagination }) {
+    state.all = categories
     state.pagination = pagination
   },
 
