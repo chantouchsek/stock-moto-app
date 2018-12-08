@@ -201,7 +201,7 @@
     mounted () {
       this.$store.watch((state) => {
         if (state.auth.authenticated) {
-          this.$store.dispatch('category/all', (proxy) => {
+          this.$store.dispatch('category/reload', (proxy) => {
             proxy.removeParameters(['q', 'order', 'sort'])
           })
           // this.$echo
