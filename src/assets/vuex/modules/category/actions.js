@@ -5,7 +5,6 @@
  * The actions available for the category module.
  */
 
-import Vue from 'vue'
 import * as types from './mutation-types'
 import store from '@/assets/vuex'
 import Proxy from '@/proxies/CategoryProxy'
@@ -50,10 +49,6 @@ const create = (category) => {
         type: 'success',
         message: 'Category has been created!'
       })
-
-      Vue.router.push({
-        name: 'categories.index'
-      })
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
@@ -76,24 +71,19 @@ const created = ({ commit }, category) => {
 /**
  * Action fired when an category will be updated.
  *
+ * @param {function} commit  Commit function to update the store.
  * @param {Object}   category  The category that will be updated.
  */
-const update = (category) => {
+const update = ({ commit }, category) => {
   const transformedCategory = CategoryTransformer.send(category)
 
-  proxy.update(category.id, transformedCategory)
-    .then(() => {
+  proxy.update(category.uuid, transformedCategory)
+    .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Category has been updated!'
+        message: response.message
       })
-
-      Vue.router.push({
-        name: 'categories.show',
-        params: {
-          categoryId: category.id
-        }
-      })
+      store.dispatch('category/updated', response.data)
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
@@ -116,19 +106,17 @@ const updated = ({ commit }, category) => {
 /**
  * Action fired when an category will be destroyed.
  *
- * @param {Object}   categoryId  The category that will be destroyed.
+ * @param {function} commit  Commit function to update the store.
+ * @param {Object}   category  The category that will be destroyed.
  */
-const destroy = (categoryId) => {
-  proxy.destroy(categoryId)
-    .then(() => {
+const destroy = ({ commit }, category) => {
+  proxy.destroy(category.uuid)
+    .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
         message: 'Category has been destroyed!'
       })
-
-      Vue.router.push({
-        name: 'categories.index'
-      })
+      store.dispatch('category/destroyed', response.data)
     })
     .catch(() => {
       store.dispatch('application/addAlert', {

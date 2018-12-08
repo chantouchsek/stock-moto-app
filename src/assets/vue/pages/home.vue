@@ -15,12 +15,11 @@
         <f7-block>
             <f7-row>
                 <f7-col>
-                    <f7-card content="Stock Moto"
-                    ></f7-card>
+                    <f7-card content="Stock Moto"></f7-card>
                 </f7-col>
             </f7-row>
             <f7-row>
-                <f7-col @click="goToPage('/sales/')">
+                <f7-col @click.native="goToPage('/sales/')">
                     <f7-card content="Sells"></f7-card>
                 </f7-col>
                 <f7-col>
@@ -28,7 +27,7 @@
                 </f7-col>
             </f7-row>
             <f7-row>
-                <f7-col @click="goToPage('/staffs/')">
+                <f7-col @click.native="goToPage('/staffs/')">
                     <f7-card content="Staffs"></f7-card>
                 </f7-col>
                 <f7-col>
@@ -38,7 +37,7 @@
         </f7-block>
         <f7-popover class="popover-menu">
             <f7-list>
-                <f7-list-item @click="logout" title="Logout"></f7-list-item>
+                <f7-list-item @click.native="logout" title="Logout"></f7-list-item>
             </f7-list>
         </f7-popover>
     </f7-page>

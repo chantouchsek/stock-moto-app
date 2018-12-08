@@ -58,6 +58,7 @@
         "framework7": "^3.5.2",
         "framework7-icons": "^2.0.5",
         "framework7-vue": "^3.5.2",
+        "lodash.debounce": "^4.0.8",
         "loglevel": "^1.6.1",
         "material-design-icons": "^3.0.1",
         "vue": "^2.5.17",

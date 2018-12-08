@@ -31,6 +31,11 @@ import SellAdd from 'pages/sales/create'
 // Authentication page
 import Login from 'pages/auth/login'
 
+// Categories Page
+import CategoryIndex from 'pages/categories/index'
+import CategoryCreate from 'pages/categories/create'
+import CategoryEdit from 'pages/categories/edit'
+
 /**
  * The routes
  *
@@ -106,6 +111,21 @@ export default [
       {
         path: '/sales/:id/',
         component: SellShow
+      },
+      {
+        path: '/categories/',
+        name: 'categories.index',
+        component: CategoryIndex
+      },
+      {
+        path: '/categories/create',
+        name: 'categories.create',
+        component: CategoryCreate
+      },
+      {
+        path: '/categories/:uuid/edit',
+        name: 'categories.edit',
+        component: CategoryEdit
       }
     ]
   }

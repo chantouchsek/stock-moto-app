@@ -13,16 +13,16 @@
             <f7-list-item link="/form/" title="Buys" panel-close></f7-list-item>
             <f7-list-item link="/staffs/" title="Staffs" panel-close></f7-list-item>
             <f7-list-item link="/form/" title="Reports" panel-close></f7-list-item>
+            <f7-list-item link="/categories/" title="Categories" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Attributes" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Roles" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Suppliers" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Products" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Customers" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Attendances" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Payrolls" panel-close></f7-list-item>
+            <f7-list-item link="/form/" title="Settings" panel-close></f7-list-item>
         </f7-list>
-        <f7-block>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum
-                neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus,
-                viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper
-                tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare
-                consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed
-                libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a
-                faucibus lectus.</p>
-        </f7-block>
     </f7-page>
 </template>
 <script>

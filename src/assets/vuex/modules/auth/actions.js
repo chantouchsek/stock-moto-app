@@ -41,10 +41,9 @@ export const login = ({ commit }, payload) => {
       store.dispatch('auth/fetchUser')
     })
     .catch((e) => {
-      console.log(e)
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: 'Could not login'
+        message: e.message
       })
     })
 }

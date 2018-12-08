@@ -22,7 +22,7 @@ export default {
    * @param {Object} pagination The fetched pagination.
    */
   [ALL] (state, { categories, pagination }) {
-    state.all = categories
+    categories.map((category) => state.all.push(category))
     state.pagination = pagination
   },
 

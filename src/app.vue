@@ -31,6 +31,34 @@
           language: 'en',
           view: {
             pushState: false
+          },
+          input: {
+            scrollIntoViewOnFocus: true,
+            scrollIntoViewCentered: true
+          }
+        }
+      }
+    },
+    watch: {
+      '$store.state.application': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (Object.keys(value.alert).length) {
+            const self = this
+            self.$f7.preloader.hide()
+            const toastIcon = self.$f7.toast.create({
+              icon: self.$f7.theme === 'ios' ? '<i class="f7-icons">check</i>' : '<i class="material-icons">check</i>',
+              text: value.alert.message,
+              position: 'center',
+              closeTimeout: 1000,
+              on: {
+                close: function () {
+                  self.$store.dispatch('application/removeAlert', {})
+                }
+              }
+            })
+            toastIcon.open()
           }
         }
       }
