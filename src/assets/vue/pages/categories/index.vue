@@ -10,8 +10,10 @@
             <f7-nav-title>Stock Moto</f7-nav-title>
             <f7-subnavbar :inner="false">
                 <f7-searchbar class="searchbar-components"
-                              search-container=".search-list"
-                              search-in=".item-title"
+                              :custom-search="true"
+                              :value="query"
+                              @input="query = $event.target.value"
+                              @searchbar:clear="query = ''"
                 ></f7-searchbar>
             </f7-subnavbar>
         </f7-navbar>
@@ -112,11 +114,11 @@
        * The results will be debounced using the lodash debounce method.
        */
       setQuery: debounce(function (query) {
-        this.$store.dispatch('category/all', (proxy) => {
+        this.$store.dispatch('category/reload', (proxy) => {
           proxy.setParameters({
             'q': query,
             'order': this.sortDesc ? 'desc' : 'asc',
-            'sort': this.sortable[this.sortBy]
+            'sort': this.sortBy
           })
             .removeParameter('page')
         })
