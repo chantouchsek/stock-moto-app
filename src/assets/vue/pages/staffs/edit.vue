@@ -40,7 +40,7 @@
 
             <f7-list-input
                     label="Phone number"
-                    type="text"
+                    type="tel"
                     placeholder="Your phone number"
                     required
                     validate
@@ -138,7 +138,9 @@
                         :key="`role-${index}`"
                         :title="role.name"
                         name="roles"
-                        :checked="true"
+                        :checked="form.roles.indexOf(role.name) >= 0"
+                        @change="checkRoles($event)"
+                        :value="role.name"
                 ></f7-list-item>
             </f7-list>
         </f7-list>

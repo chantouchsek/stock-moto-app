@@ -66,7 +66,8 @@ class StaffTransformer extends Transformer {
       avatar_url: staff.avatarUrl,
       status: staff.status,
       resigned_at: staff.resignedAt,
-      bonus: staff.bonus
+      bonus: staff.bonus,
+      roles: staff.roles
     }
   }
 }

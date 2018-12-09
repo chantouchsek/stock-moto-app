@@ -24,10 +24,10 @@ import StaffCreate from 'pages/staffs/create'
 import StaffEdit from 'pages/staffs/edit'
 import StaffInfo from 'pages/staffs/show'
 
-// Sells Page
-import SellIndex from 'pages/sales/index'
-import SellShow from 'pages/sales/show'
-import SellAdd from 'pages/sales/create'
+// Sales Page
+import SaleIndex from 'pages/sales/index'
+import SaleShow from 'pages/sales/show'
+import SaleAdd from 'pages/sales/create'
 
 // Authentication page
 import Login from 'pages/auth/login'
@@ -122,17 +122,17 @@ export default [
       },
       {
         path: '/sales/',
-        component: SellIndex,
+        component: SaleIndex,
         name: 'sales.index'
       },
       {
         path: '/sales/add/',
-        component: SellAdd,
+        component: SaleAdd,
         name: 'sales.create'
       },
       {
         path: '/sales/:id/',
-        component: SellShow,
+        component: SaleShow,
         name: 'sales.show'
       },
       {
