@@ -28,7 +28,7 @@ class StaffTransformer extends Transformer {
       dateOfBirth: staff.date_of_birth,
       address: staff.address,
       startWorkDate: staff.start_work_date,
-      dateGetSalary: staff.date_get_salary,
+      payDay: staff.pay_day,
       baseSalary: staff.base_salary,
       avatarUrl: staff.avatar_url,
       status: staff.status,
@@ -37,7 +37,9 @@ class StaffTransformer extends Transformer {
       emailVerifiedAt: staff.email_verified_at,
       createdAt: staff.created_at,
       updatedAt: staff.updated_at,
-      deletedAt: staff.deleted_at
+      deletedAt: staff.deleted_at,
+      bio: staff.bio,
+      roles: staff.roles
     })
   }
 
@@ -59,7 +61,7 @@ class StaffTransformer extends Transformer {
       date_of_birth: staff.dateOfBirth,
       address: staff.address,
       start_work_date: staff.startWorkDate,
-      date_get_salary: staff.dateGetSalary,
+      pay_day: staff.payDay,
       base_salary: staff.baseSalary,
       avatar_url: staff.avatarUrl,
       status: staff.status,

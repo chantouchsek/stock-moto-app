@@ -1,7 +1,7 @@
 <template>
     <f7-page>
-        <f7-navbar title="New Staff" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>New Staff</f7-block-title>
+        <f7-navbar title="Edit Staff" back-link="Back" sliding></f7-navbar>
+        <f7-block-title>Edit: {{ form.name }}</f7-block-title>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="First Name"
@@ -82,10 +82,10 @@
 
             <f7-list-input
                     label="Pay day"
-                    type="text"
+                    type="date"
                     placeholder="Your pay day"
                     info="With custom error message"
-                    error-message="Only numbers please!"
+                    error-message="Select a valid date please!"
                     required
                     validate
                     pattern="[0-9]*"
@@ -129,11 +129,35 @@
                     @input="form.bio = $event.target.value"
             >
             </f7-list-input>
+
+            <f7-block-title>Roles</f7-block-title>
+            <f7-list>
+                <f7-list-item
+                        v-for="(role,index) in roles"
+                        checkbox
+                        :key="`role-${index}`"
+                        :title="role.name"
+                        name="roles"
+                        :checked="true"
+                ></f7-list-item>
+            </f7-list>
         </f7-list>
         <f7-block>
             <f7-row>
                 <f7-col>
-                    <f7-button fill big>Add</f7-button>
+                    <f7-button fill @click.native="updateStaff" big outline round>
+                        <i class="f7-icons">edit</i> Edit
+                    </f7-button>
+                </f7-col>
+                <f7-col v-if="$store.state.auth.user.id !== form.id">
+                    <f7-button fill color="red" big outline round @click.native="destroyStaff(form)">
+                        <i class="f7-icons">trash</i> Delete
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill @click.native="$f7router.back()" big outline round color="orange">
+                        <i class="f7-icons">chevron_left</i> Cancel
+                    </f7-button>
                 </f7-col>
             </f7-row>
         </f7-block>
@@ -142,26 +166,22 @@
 
 <script>
   import StaffProxy from '@/proxies/StaffProxy'
+  import RoleProxy from '@/proxies/RoleProxy'
   import StaffTransformer from '@/transformers/StaffTransformer'
+  import RoleTransformer from '@/transformers/RoleTransformer'
 
   const proxy = new StaffProxy()
+  const roleProxy = new RoleProxy()
 
   export default {
     name: 'edit-staff',
     data () {
       return {
-        form: {}
+        form: { roles: [] },
+        roles: []
       }
     },
     methods: {
-      checkActive (event) {
-        const self = this;
-        if (event.target.checked) {
-          self.form.active = 1
-          return
-        }
-        self.form.active = 0
-      },
       /**
        * Method used to fetch an staff.
        *
@@ -171,6 +191,12 @@
         proxy.find(id)
           .then((data) => {
             this.form = StaffTransformer.fetch(data)
+          })
+      },
+      fetchRoles () {
+        roleProxy.all()
+          .then((response) => {
+            this.roles = RoleTransformer.fetchCollection(response.data)
           })
       },
       /**
@@ -192,6 +218,15 @@
           app.preloader.show()
           self.$store.dispatch('staff/destroy', staff)
         })
+      },
+      checkRoles (event) {
+        const self = this
+        const value = event.target.value
+        if (event.target.checked) {
+          self.form.roles.push(value)
+        } else {
+          self.form.roles.splice(self.form.roles.indexOf(value), 1)
+        }
       }
     },
     /**
@@ -200,6 +235,7 @@
      */
     mounted () {
       this.fetchStaff(this.$f7route.params.uuid)
+      this.fetchRoles()
     },
     watch: {
       '$store.state.application': {
