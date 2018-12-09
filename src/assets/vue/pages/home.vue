@@ -51,9 +51,20 @@
       },
       logout () {
         this.$store.dispatch('auth/logout')
-        this.$f7router.navigate('/login/')
       }
     },
-  };
+    watch: {
+      '$store.state.auth': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (!value.authenticated) {
+            const self = this
+            self.$f7router.refreshPage()
+          }
+        }
+      }
+    }
+  }
 
 </script>
