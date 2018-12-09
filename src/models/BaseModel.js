@@ -13,9 +13,9 @@ class BaseModel {
    */
   constructor(data) {
     Object.keys(data).forEach((key) => {
-      this[key] = data[key];
-    });
+      this[key] = data[key]
+    })
   }
 }
 
-export default BaseModel;
+export default BaseModel

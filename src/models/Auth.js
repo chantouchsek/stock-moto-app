@@ -5,10 +5,10 @@
  * The model for the authentication data.
  */
 
-import Model from './BaseModel';
+import Model from './BaseModel'
 
 class Auth extends Model {
   //
 }
 
-export default Auth;
+export default Auth

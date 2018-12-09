@@ -20,7 +20,8 @@ import auth from '@/middleware/auth'
 
 // Staffs Page
 import StaffIndex from 'pages/staffs/index'
-import StaffAdd from 'pages/staffs/create'
+import StaffCreate from 'pages/staffs/create'
+import StaffEdit from 'pages/staffs/edit'
 import StaffInfo from 'pages/staffs/show'
 
 // Sells Page
@@ -35,6 +36,9 @@ import Login from 'pages/auth/login'
 import CategoryIndex from 'pages/categories/index'
 import CategoryCreate from 'pages/categories/create'
 import CategoryEdit from 'pages/categories/edit'
+
+// Roles Pages
+import RoleIndex from 'pages/roles/index'
 
 /**
  * The routes
@@ -58,59 +62,78 @@ export default [
     routes: [
       {
         path: '/about/',
-        component: AboutPage
+        component: AboutPage,
+        name: 'about'
       },
       {
         path: '/form/',
-        component: FormPage
+        component: FormPage,
+        name: 'form'
       },
       {
         path: '/dynamic-route/blog/:blogId/post/:postId/',
-        component: DynamicRoutePage
+        component: DynamicRoutePage,
+        name: 'dynamic'
       },
       {
         path: '/panel-left/',
-        component: PanelLeftPage
+        component: PanelLeftPage,
+        name: 'panel-left'
       },
       {
         path: '/color-themes/',
-        component: ColorThemes
+        component: ColorThemes,
+        name: 'color-theme'
       },
       {
         path: '/chat/',
-        component: Chat
+        component: Chat,
+        name: 'chat'
       },
       {
         path: '/vuex/',
-        component: Vuex
+        component: Vuex,
+        name: 'vuex'
       },
       {
         path: '/login/',
-        component: Login
+        component: Login,
+        name: 'login'
       },
       {
         path: '/staffs/',
-        component: StaffIndex
+        component: StaffIndex,
+        name: 'staffs.index'
       },
       {
-        path: '/add-staff/',
-        component: StaffAdd
+        path: '/staff-create',
+        component: StaffCreate,
+        name: 'staffs.create'
       },
       {
-        path: '/staffs/:id',
-        component: StaffInfo
+        path: '/staffs/:uuid',
+        component: StaffInfo,
+        name: 'staffs.show'
+      },
+      {
+        path: '/staffs/:uuid/edit',
+        component: StaffEdit,
+        name: 'staffs.edit'
       },
       {
         path: '/sales/',
-        component: SellIndex
+        component: SellIndex,
+        name: 'sales.index'
       },
       {
         path: '/sales/add/',
-        component: SellAdd
+        component: SellAdd,
+        name: 'sales.create'
       },
       {
         path: '/sales/:id/',
-        component: SellShow
+        component: SellShow,
+        name: 'sales.show'
       },
       {
         path: '/categories/',
@@ -126,6 +149,11 @@ export default [
         path: '/categories/:uuid/edit',
         name: 'categories.edit',
         component: CategoryEdit
+      },
+      {
+        path: '/roles/',
+        name: 'roles.index',
+        component: RoleIndex
       }
     ]
   }

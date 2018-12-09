@@ -77,7 +77,6 @@
     },
     data () {
       return {
-        categories: [],
         query: null,
         pageNumbers: [5, 10, 20, 30, 50, 500],
         sortBy: 'name',

@@ -5,10 +5,10 @@
  * The model for the pagination.
  */
 
-import Model from './BaseModel';
+import Model from './BaseModel'
 
 class Pagination extends Model {
   //
 }
 
-export default Pagination;
+export default Pagination
