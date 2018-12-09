@@ -30,7 +30,7 @@ import app from '@/app'
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue)
 
-Axios.defaults.baseURL = 'http://api-stock.test/'
+Axios.defaults.baseURL = process.env.API_LOCATION
 Axios.defaults.headers.common.Accept = 'application/json'
 
 Vue.config.debug = process.env.NODE_ENV !== 'production'

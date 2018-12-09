@@ -47,6 +47,18 @@
       signIn () {
         this.$store.dispatch('auth/login', this.user)
       }
+    },
+    watch: {
+      '$store.state.auth': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (value.authenticated) {
+            const self = this
+            self.$f7router.refreshPage()
+          }
+        }
+      }
     }
   }
 </script>

@@ -35,7 +35,8 @@ export const login = ({ commit }, payload) => {
 
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Login successful!'
+        message: 'Login successful!',
+        isLoggedIn: true
       })
       // Fetch the user.
       store.dispatch('auth/fetchUser')

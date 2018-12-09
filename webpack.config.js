@@ -12,7 +12,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const entryFile = path.join(__dirname, 'src/main.js');
 const devServerPort = 8081;
 
-let config = function (env) {
+let config = env => {
   let returner = {
     entry: entryFile,
     mode: (env && typeof env.release !== 'undefined' && env.release) ? "production" : "development",
@@ -95,7 +95,10 @@ let config = function (env) {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          'NODE_ENV': JSON.stringify((env && typeof env !== "undefined" && env.release) ? 'production' : 'development')
+          'NODE_ENV': JSON.stringify((env && typeof env !== "undefined" && env.release) ? 'production' : 'development'),
+          'API_LOCATION': JSON.stringify((env && typeof env !== "undefined" && env.release) ? 'http://api-stock.bookingkh.com/' : 'http://api-stock.test/'),
+          'API_CLIENT_ID': 2,
+          'API_CLIENT_SECRET': JSON.stringify((env && typeof env !== "undefined" && env.release) ? 'f1CciRmj0Wd0lRTFR972Iit2kC6gsQ6hkc9GIc1O' : 'f1CciRmj0Wd0lRTFR972Iit2kC6gsQ6hkc9GIc1O')
         }
       }),
       new HtmlWebpackPlugin({
