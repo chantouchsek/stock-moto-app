@@ -73,7 +73,6 @@ export default {
       if (item.id === category.id) {
         return category
       }
-
       return item
     })
   },
@@ -98,7 +97,7 @@ export default {
       page -= 1
     }
 
-    store.dispatch('category/all', (proxy) => {
+    store.dispatch('category/reload', (proxy) => {
       proxy.setParameter('page', page)
     })
   }

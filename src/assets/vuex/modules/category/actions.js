@@ -103,7 +103,8 @@ const update = ({ commit }, category) => {
     .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: response.message
+        message: response.message,
+        edited: true
       })
       store.dispatch('category/updated', response.data)
     })
@@ -136,7 +137,8 @@ const destroy = ({ commit }, category) => {
     .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Category has been destroyed!'
+        message: 'Category has been destroyed!',
+        destroyed: true
       })
       store.dispatch('category/destroyed', response.data)
     })

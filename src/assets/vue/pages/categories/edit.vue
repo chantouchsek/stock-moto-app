@@ -1,7 +1,7 @@
 <template>
     <f7-page>
         <f7-navbar title="Edit Category" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Edit category</f7-block-title>
+        <f7-block-title>Edit: {{ form.name }}</f7-block-title>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="Name"
@@ -38,10 +38,19 @@
         <f7-block>
             <f7-row>
                 <f7-col>
-                    <f7-button fill big @click.native="updateCategory">Edit</f7-button>
+                    <f7-button fill @click.native="updateCategory" big outline round>
+                        <i class="f7-icons">edit</i> Edit
+                    </f7-button>
                 </f7-col>
                 <f7-col>
-                    <f7-button fill big @click="$f7router.back()">Cancel</f7-button>
+                    <f7-button fill color="red" big outline round @click.native="destroyCategory(form)">
+                        <i class="f7-icons">trash</i> Delete
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill @click="$f7router.back()" big outline round>
+                        <i class="f7-icons">chevron_left</i> Cancel
+                    </f7-button>
                 </f7-col>
             </f7-row>
         </f7-block>
@@ -88,6 +97,17 @@
         const self = this
         self.$f7.preloader.show()
         self.$store.dispatch('category/update', self.form)
+      },
+      /**
+       * Delete the resource
+       */
+      destroyCategory (category) {
+        const self = this
+        const app = self.$f7
+        app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
+          app.preloader.show()
+          self.$store.dispatch('category/destroy', category)
+        })
       }
     },
     /**
@@ -96,6 +116,22 @@
      */
     mounted () {
       this.fetchCategory(this.$f7route.params.uuid)
+    },
+    watch: {
+      '$store.state.application': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (Object.keys(value.alert).length && value.alert.destroyed) {
+            const self = this
+            self.$f7router.back()
+          }
+          if (Object.keys(value.alert).length && value.alert.edited) {
+            const self = this
+            self.$f7router.back()
+          }
+        }
+      }
     }
   }
 </script>

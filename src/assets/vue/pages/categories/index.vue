@@ -9,17 +9,17 @@
         <f7-navbar back-link="Back" sliding>
             <f7-nav-title>Stock Moto</f7-nav-title>
             <f7-subnavbar :inner="false">
-                <f7-searchbar class="searchbar-components"
-                              :custom-search="true"
-                              :value="query"
-                              @input="query = $event.target.value"
-                              @searchbar:clear="query = ''"
+                <f7-searchbar
+                        :custom-search="true"
+                        :value="query"
+                        @input="query = $event.target.value"
+                        @searchbar:clear="query = ''"
                 ></f7-searchbar>
             </f7-subnavbar>
         </f7-navbar>
 
-        <f7-block-title class="searchbar-found">Categories List</f7-block-title>
-        <f7-list class="search-list searchbar-found">
+        <f7-block-title>Categories List</f7-block-title>
+        <f7-list>
             <f7-list-item v-for="(cg,index) in category.all"
                           swipeout
                           @swipeout:delete="destroyCategory(cg)"
@@ -27,17 +27,17 @@
                           :title="cg.name"
                           after="Edit"
                           @click="getEditRoute(cg.uuid)"
+                          link
             >
                 <f7-swipeout-actions right>
-                    <f7-swipeout-button delete
-                                        overswipe>
+                    <f7-swipeout-button delete>
                         Delete
                     </f7-swipeout-button>
                 </f7-swipeout-actions>
             </f7-list-item>
         </f7-list>
 
-        <f7-list class="searchbar-not-found">
+        <f7-list v-if="category.all.length === 0">
             <f7-list-item title="Nothing found"></f7-list-item>
         </f7-list>
 
