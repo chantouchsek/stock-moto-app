@@ -44,6 +44,16 @@ import RoleIndex from 'pages/roles/index'
 import SupplierIndex from 'pages/supplier/index'
 import SupplierEdit from 'pages/supplier/edit'
 
+// Makes page
+import MakeIndex from 'pages/makes/index'
+import MakeCreate from 'pages/makes/create'
+import MakeEdit from 'pages/makes/edit'
+
+// Models page
+import ModelIndex from 'pages/models/index'
+import ModelCreate from 'pages/models/create'
+import ModelEdit from 'pages/models/edit'
+
 /**
  * The routes
  *
@@ -168,6 +178,36 @@ export default [
         path: '/suppliers/:uuid/edit',
         name: 'suppliers.edit',
         component: SupplierEdit
+      },
+      {
+        path: '/makes/',
+        name: 'makes.index',
+        component: MakeIndex
+      },
+      {
+        path: '/makes-create/',
+        name: 'makes.create',
+        component: MakeCreate
+      },
+      {
+        path: '/makes/:uuid/edit/',
+        name: 'makes.edit',
+        component: MakeEdit
+      },
+      {
+        path: '/models/',
+        name: 'models.index',
+        component: ModelIndex
+      },
+      {
+        path: '/models-create/',
+        name: 'models.create',
+        component: ModelCreate
+      },
+      {
+        path: '/models/:uuid/edit/',
+        name: 'models.edit',
+        component: ModelEdit
       }
     ]
   }

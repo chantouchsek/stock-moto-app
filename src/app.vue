@@ -51,7 +51,7 @@
               icon: self.$f7.theme === 'ios' ? '<i class="f7-icons">check</i>' : '<i class="material-icons">check</i>',
               text: value.alert.message,
               position: 'center',
-              closeTimeout: 1000,
+              closeTimeout: 2000,
               on: {
                 close: function () {
                   self.$store.dispatch('application/removeAlert', {})
