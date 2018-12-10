@@ -60,9 +60,10 @@ const reload = async ({ commit }, fn = null) => {
 /**
  * Action fired when an staff will be created.
  *
+ * @param {function} commit Commit function to update the store.
  * @param {Object}   staff  The staff that will be created.
  */
-const create = (staff) => {
+const create = ({ commit }, staff) => {
   const transformedStaff = StaffTransformer.send(staff)
 
   proxy.create(transformedStaff)

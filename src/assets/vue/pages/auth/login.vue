@@ -10,6 +10,7 @@
                     required
                     validate
                     clear-button
+                    floating-label
                     :value="user.username"
                     @input="user.username = $event.target.value"
             >
@@ -22,6 +23,7 @@
                     required
                     validate
                     clear-button
+                    floating-label
                     :value="user.password"
                     @input="user.password = $event.target.value"
             >

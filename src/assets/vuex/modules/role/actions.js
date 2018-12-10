@@ -60,9 +60,10 @@ const reload = async ({ commit }, fn = null) => {
 /**
  * Action fired when an role will be created.
  *
+ * @param {function} commit Commit function to update the store.
  * @param {Object}   role  The role that will be created.
  */
-const create = (role) => {
+const create = ({ commit }, role) => {
   const transformedRole = RoleTransformer.send(role)
 
   proxy.create(transformedRole)
