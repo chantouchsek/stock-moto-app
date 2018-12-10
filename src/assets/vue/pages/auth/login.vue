@@ -43,9 +43,20 @@
         }
       }
     },
+    computed: {
+      errorMessage () {
+        let message = this.$store.state.application.errors
+        if (Object.keys(message).length && typeof message !== 'undefined') {
+          return message
+        }
+        return {}
+      }
+    },
     methods: {
       signIn () {
-        this.$store.dispatch('auth/login', this.user)
+        const self = this
+        self.$f7.preloader.show()
+        self.$store.dispatch('auth/login', this.user)
       }
     },
     watch: {

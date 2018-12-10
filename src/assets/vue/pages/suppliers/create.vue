@@ -1,12 +1,12 @@
 <template>
     <f7-page>
-        <f7-navbar title="New Category" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Add new category</f7-block-title>
+        <f7-navbar title="New Supplier" back-link="Back" sliding></f7-navbar>
+        <f7-block-title>Add supplier</f7-block-title>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="Name"
                     type="text"
-                    placeholder="Category name"
+                    placeholder="Supplier name"
                     info="Default validation"
                     required
                     validate
@@ -18,7 +18,7 @@
             <f7-list-input
                     label="Description"
                     floating-label
-                    placeholder="Category description"
+                    placeholder="Supplier description"
                     info="Default validation"
                     type="textarea"
                     resizable
@@ -46,7 +46,7 @@
 </template>
 <script>
   export default {
-    name: 'create-category',
+    name: 'create-supplier',
     data () {
       return {
         form: {}

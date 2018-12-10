@@ -1,20 +1,20 @@
 /* ============
- * Supplier Actions
+ * Customer Actions
  * ============
  *
- * The actions available for the supplier module.
+ * The actions available for the customer module.
  */
 
 import * as types from './mutation-types'
 import store from '@/assets/vuex'
-import Proxy from '@/proxies/SupplierProxy'
-import SupplierTransformer from '@/transformers/SupplierTransformer'
+import Proxy from '@/proxies/CustomerProxy'
+import CustomerTransformer from '@/transformers/CustomerTransformer'
 import PaginationTransformer from '@/transformers/PaginationTransformer'
 
 const proxy = new Proxy()
 
 /**
- * Action fired when all suppliers will be fetched.
+ * Action fired when all customers will be fetched.
  *
  * @param {function} commit Commit function to update the store.
  * @param {function} fn     Callback to edit the parameters on the proxy.
@@ -27,7 +27,7 @@ const all = async ({ commit }, fn = null) => {
   await proxy.all()
     .then((response) => {
       const data = {
-        suppliers: SupplierTransformer.fetchCollection(response.data),
+        customers: CustomerTransformer.fetchCollection(response.data),
         pagination: PaginationTransformer.fetch(response.pagination)
       }
 
@@ -36,7 +36,7 @@ const all = async ({ commit }, fn = null) => {
 }
 
 /**
- * Action fired when all suppliers will be fetched.
+ * Action fired when all customers will be fetched.
  *
  * @param {function} commit Commit function to update the store.
  * @param {function} fn     Callback to edit the parameters on the proxy.
@@ -49,7 +49,7 @@ const reload = async ({ commit }, fn = null) => {
   await proxy.all()
     .then((response) => {
       const data = {
-        suppliers: SupplierTransformer.fetchCollection(response.data),
+        customers: CustomerTransformer.fetchCollection(response.data),
         pagination: PaginationTransformer.fetch(response.pagination)
       }
 
@@ -58,107 +58,108 @@ const reload = async ({ commit }, fn = null) => {
 }
 
 /**
- * Action fired when an supplier will be created.
+ * Action fired when an customer will be created.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that will be created.
+ * @param {Object}   customer  The customer that will be created.
  */
-const create = ({ commit }, supplier) => {
-  const transformedSupplier = SupplierTransformer.send(supplier)
+const create = ({ commit }, customer) => {
+  const transformedCustomer = CustomerTransformer.send(customer)
 
-  proxy.create(transformedSupplier)
+  proxy.create(transformedCustomer)
     .then(() => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Supplier has been created!'
+        message: 'Customer has been created!',
+        created: true
       })
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: 'The supplier could not be created'
+        message: 'The customer could not be created'
       })
     })
 }
 
 /**
- * Action fired when an supplier has been created.
+ * Action fired when an customer has been created.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that has been created.
+ * @param {Object}   customer  The customer that has been created.
  */
-const created = ({ commit }, supplier) => {
-  commit(types.CREATED, SupplierTransformer.fetch(supplier))
+const created = ({ commit }, customer) => {
+  commit(types.CREATED, CustomerTransformer.fetch(customer))
 }
 
 /**
- * Action fired when an supplier will be updated.
+ * Action fired when an customer will be updated.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that will be updated.
+ * @param {Object}   customer  The customer that will be updated.
  */
-const update = ({ commit }, supplier) => {
-  const transformedSupplier = SupplierTransformer.send(supplier)
+const update = ({ commit }, customer) => {
+  const transformedCustomer = CustomerTransformer.send(customer)
 
-  proxy.update(supplier.uuid, transformedSupplier)
+  proxy.update(customer.uuid, transformedCustomer)
     .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
         message: response.message,
         edited: true
       })
-      store.dispatch('supplier/updated', response.data)
+      store.dispatch('customer/updated', response.data)
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: 'The supplier could not be updated'
+        message: 'The customer could not be updated'
       })
     })
 }
 
 /**
- * Action fired when an supplier has been updated.
+ * Action fired when an customer has been updated.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that has been updated.
+ * @param {Object}   customer  The customer that has been updated.
  */
-const updated = ({ commit }, supplier) => {
-  commit(types.UPDATED, SupplierTransformer.fetch(supplier))
+const updated = ({ commit }, customer) => {
+  commit(types.UPDATED, CustomerTransformer.fetch(customer))
 }
 
 /**
- * Action fired when an supplier will be destroyed.
+ * Action fired when an customer will be destroyed.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that will be destroyed.
+ * @param {Object}   customer  The customer that will be destroyed.
  */
-const destroy = ({ commit }, supplier) => {
-  proxy.destroy(supplier.uuid)
+const destroy = ({ commit }, customer) => {
+  proxy.destroy(customer.uuid)
     .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Supplier has been destroyed!',
+        message: 'Customer has been destroyed!',
         destroyed: true
       })
-      store.dispatch('supplier/destroyed', response.data)
+      store.dispatch('customer/destroyed', response.data)
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: 'The supplier could not be destroyed'
+        message: 'The customer could not be destroyed'
       })
     })
 }
 
 /**
- * Action fired when an supplier has been destroyed.
+ * Action fired when an customer has been destroyed.
  *
  * @param {function} commit  Commit function to update the store.
- * @param {Object}   supplier  The supplier that has been destroyed.
+ * @param {Object}   customer  The customer that has been destroyed.
  */
-const destroyed = ({ commit }, supplier) => {
-  commit(types.DESTROYED, SupplierTransformer.fetch(supplier))
+const destroyed = ({ commit }, customer) => {
+  commit(types.DESTROYED, CustomerTransformer.fetch(customer))
 }
 
 export default {

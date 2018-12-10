@@ -41,8 +41,9 @@ import CategoryEdit from 'pages/categories/edit'
 import RoleIndex from 'pages/roles/index'
 
 // Supplier page
-import SupplierIndex from 'pages/supplier/index'
-import SupplierEdit from 'pages/supplier/edit'
+import SupplierIndex from 'pages/suppliers/index'
+import SupplierCreate from 'pages/suppliers/create'
+import SupplierEdit from 'pages/suppliers/edit'
 
 // Makes page
 import MakeIndex from 'pages/makes/index'
@@ -53,6 +54,11 @@ import MakeEdit from 'pages/makes/edit'
 import ModelIndex from 'pages/models/index'
 import ModelCreate from 'pages/models/create'
 import ModelEdit from 'pages/models/edit'
+
+// Customers Page
+import CustomerIndex from 'pages/customers/index'
+import CustomerCreate from 'pages/customers/create'
+import CustomerEdit from 'pages/customers/edit'
 
 /**
  * The routes
@@ -175,6 +181,11 @@ export default [
         component: SupplierIndex
       },
       {
+        path: '/suppliers-create/',
+        name: 'suppliers.create',
+        component: SupplierCreate
+      },
+      {
         path: '/suppliers/:uuid/edit',
         name: 'suppliers.edit',
         component: SupplierEdit
@@ -208,6 +219,21 @@ export default [
         path: '/models/:uuid/edit/',
         name: 'models.edit',
         component: ModelEdit
+      },
+      {
+        path: '/customers/',
+        name: 'customers.index',
+        component: CustomerIndex
+      },
+      {
+        path: '/customers-create/',
+        name: 'customers.create',
+        component: CustomerCreate
+      },
+      {
+        path: '/customers/:uuid/edit/',
+        name: 'customers.edit',
+        component: CustomerEdit
       }
     ]
   }

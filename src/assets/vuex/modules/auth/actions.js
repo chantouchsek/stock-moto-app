@@ -41,10 +41,10 @@ export const login = ({ commit }, payload) => {
       // Fetch the user.
       store.dispatch('auth/fetchUser')
     })
-    .catch((e) => {
+    .catch((response) => {
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: e.message
+        message: 'Please check your email and password.'
       })
     })
 }

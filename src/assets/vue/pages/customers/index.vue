@@ -4,7 +4,7 @@
             infinite
             :infinite-preloader="showPreloader"
             @infinite="setQueryScroll"
-            @ptr:refresh="reloadSupplier"
+            @ptr:refresh="reloadCustomer"
     >
         <f7-navbar back-link="Back" sliding>
             <f7-nav-title>Stock Moto</f7-nav-title>
@@ -18,13 +18,13 @@
             </f7-subnavbar>
         </f7-navbar>
 
-        <f7-block-title>Categories List</f7-block-title>
+        <f7-block-title>Customers List</f7-block-title>
         <f7-list>
-            <f7-list-item v-for="(cg,index) in supplier.all"
+            <f7-list-item v-for="(cg,index) in customer.all"
                           swipeout
-                          @swipeout:delete="destroySupplier(cg)"
+                          @swipeout:delete="destroyCustomer(cg)"
                           :key="`cg-${index}`"
-                          :title="cg.name"
+                          :title="cg.fullName"
                           after="Edit"
                           @click="getEditRoute(cg.uuid)"
                           link
@@ -37,7 +37,7 @@
             </f7-list-item>
         </f7-list>
 
-        <f7-list v-if="supplier.all.length === 0">
+        <f7-list v-if="customer.all.length === 0">
             <f7-list-item title="Nothing found"></f7-list-item>
         </f7-list>
 
@@ -55,12 +55,12 @@
   import debounce from 'lodash.debounce'
 
   export default {
-    name: 'SupplierIndex',
+    name: 'CustomerIndex',
     computed: {
-      ...mapState(['supplier']),
+      ...mapState(['customer']),
       limit: {
         get () {
-          return this.supplier.pagination.limit
+          return this.customer.pagination.limit
         },
         set (limit) {
           this.setLimit(limit)
@@ -68,7 +68,7 @@
       },
       currentPage: {
         get () {
-          return this.supplier.pagination.currentPage
+          return this.customer.pagination.currentPage
         },
         set (page) {
           this.setPage(page)
@@ -93,7 +93,7 @@
        * @param {Number} page The page number.
        */
       setPage (page) {
-        this.$store.dispatch('supplier/all', (proxy) => {
+        this.$store.dispatch('customer/all', (proxy) => {
           proxy.setParameter('page', page)
         })
       },
@@ -103,7 +103,7 @@
        * @param {Number} limit The limit of items being displayed.
        */
       setLimit (limit) {
-        this.$store.dispatch('supplier/all', (proxy) => {
+        this.$store.dispatch('customer/all', (proxy) => {
           proxy.setParameter('limit', limit)
             .removeParameter('page')
         })
@@ -113,7 +113,7 @@
        * The results will be debounced using the lodash debounce method.
        */
       setQuery: debounce(function (query) {
-        this.$store.dispatch('supplier/reload', (proxy) => {
+        this.$store.dispatch('customer/reload', (proxy) => {
           proxy.setParameters({
             'q': query,
             'order': this.sortDesc ? 'desc' : 'asc',
@@ -123,24 +123,24 @@
         })
       }, 500),
       /**
-       * Method used to get the supplier route.
+       * Method used to get the customer route.
        *
-       * @param {Number} uuid The supplier identifier.
+       * @param {Number} uuid The customer identifier.
        *
-       * @returns {Object} The supplier route.
+       * @returns {Object} The customer route.
        */
       getEditRoute (uuid) {
         this.$f7router.navigate({
-          name: 'suppliers.edit',
+          name: 'customers.edit',
           params: { uuid: uuid }
         })
       },
       /**
        * Reload the resource
        */
-      reloadSupplier: debounce(function (event, done) {
+      reloadCustomer: debounce(function (event, done) {
         const self = this;
-        self.$store.dispatch('supplier/reload', (proxy) => {
+        self.$store.dispatch('customer/reload', (proxy) => {
           proxy.removeParameters(['q', 'order', 'sort', 'limit', 'page'])
         })
         done()
@@ -148,17 +148,17 @@
       /**
        * Delete the resource
        */
-      destroySupplier (supplier) {
+      destroyCustomer (customer) {
         const self = this
         self.$f7.preloader.show()
-        self.$store.dispatch('supplier/destroy', supplier)
+        self.$store.dispatch('customer/destroy', customer)
       },
       /**
        * Create the resource
        */
       redirectToCreatePage () {
         const self = this
-        self.$f7router.navigate({ name: 'suppliers.create' })
+        self.$f7router.navigate({ name: 'customers.create' })
       },
       /**
        * The method used to load more data on scroll
@@ -167,7 +167,7 @@
        */
       setQueryScroll: debounce(function () {
         const self = this
-        if (self.currentPage < self.supplier.pagination.totalPages) {
+        if (self.currentPage < self.customer.pagination.totalPages) {
           self.currentPage++
           return
         }
@@ -181,7 +181,7 @@
       query (query) {
         this.setQuery(query)
       },
-      'supplier': {
+      'customer': {
         deep: true,
         immediate: true,
         handler (value) {
@@ -200,17 +200,9 @@
     mounted () {
       this.$store.watch((state) => {
         if (state.auth.authenticated) {
-          this.$store.dispatch('supplier/reload', (proxy) => {
+          this.$store.dispatch('customer/reload', (proxy) => {
             proxy.removeParameters(['q', 'order', 'sort'])
           })
-          // this.$echo
-          //   .channel('supplier')
-          //   .listen('User.Created', supplier => this.$store.dispatch('supplier/created', supplier))
-          //   .listen('User.Updated', (supplier) => {
-          //     console.log(supplier)
-          //     this.$store.dispatch('supplier/updated', supplier)
-          //   })
-          //   .listen('User.Deleted', supplier => this.$store.dispatch('supplier/destroyed', supplier))
         }
       })
     }

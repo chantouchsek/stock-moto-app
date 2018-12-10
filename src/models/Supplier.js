@@ -2,7 +2,7 @@
  * Supplier Model
  * ============
  *
- * The model for the supplier data.
+ * The model for the suppliers data.
  */
 
 import Model from './BaseModel'
