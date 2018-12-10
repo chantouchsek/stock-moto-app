@@ -93,3 +93,5 @@ yarn.lock
 www/
 platforms/
 plugins/*
+.DS_Store
+.DB_Store
