@@ -19,7 +19,7 @@
             <f7-list-input
                     label="Make"
                     type="select"
-                    defaultValue="1"
+                    defaultValue=""
                     placeholder="Please choose..."
                     :value="form.makeId"
                     @input="form.makeId = $event.target.value"

@@ -60,22 +60,29 @@ const reload = async ({ commit }, fn = null) => {
 /**
  * Action fired when an make will be created.
  *
+ * @param {function} commit  Commit function to update the store.
  * @param {Object}   make  The make that will be created.
  */
-const create = (make) => {
+const create = ({ commit }, make) => {
   const transformedMake = MakeTransformer.send(make)
 
   proxy.create(transformedMake)
-    .then(() => {
+    .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Make has been created!'
+        message: response.message,
+        created: true
       })
     })
-    .catch(() => {
+    .catch((response) => {
       store.dispatch('application/addAlert', {
         type: 'danger',
-        message: 'The make could not be created'
+        message: response.message
+      })
+      store.dispatch('application/addErrors', {
+        type: 'danger',
+        errors: response.errors,
+        error: true
       })
     })
 }
@@ -108,10 +115,15 @@ const update = ({ commit }, make) => {
       })
       store.dispatch('make/updated', response.data)
     })
-    .catch(() => {
+    .catch((response) => {
       store.dispatch('application/addAlert', {
         type: 'danger',
         message: 'The make could not be updated'
+      })
+      store.dispatch('application/addErrors', {
+        type: 'danger',
+        errors: response.errors,
+        error: true
       })
     })
 }

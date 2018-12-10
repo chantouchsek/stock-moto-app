@@ -60,9 +60,10 @@ const reload = async ({ commit }, fn = null) => {
 /**
  * Action fired when an category will be created.
  *
+ * @param {function} commit  Commit function to update the store.
  * @param {Object}   category  The category that will be created.
  */
-const create = (category) => {
+const create = ({ commit }, category) => {
   const transformedCategory = CategoryTransformer.send(category)
 
   proxy.create(transformedCategory)

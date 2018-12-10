@@ -6,5 +6,6 @@
  */
 
 export default {
-  alert: {}
+  alert: {},
+  errors: {}
 }

@@ -17,6 +17,16 @@ const addAlert = ({ commit }, payload) => {
 }
 
 /**
+ * Action fired to add new errors.
+ *
+ * @param {function} commit  Commit function to update the store.
+ * @param {Object}   payload The payload.
+ */
+const addErrors = ({ commit }, payload) => {
+  commit(types.ADD_ERRORS, payload)
+}
+
+/**
  * Action fired to remove an alert.
  *
  * @param {function} commit  Commit function to update the store.
@@ -26,7 +36,18 @@ const removeAlert = ({ commit }, payload) => {
   commit(types.REMOVE_ALERT, payload)
 }
 
+/**
+ * Action fired to remove errors.
+ *
+ * @param {function} commit  Commit function to update the store.
+ */
+const removeErrors = ({ commit }) => {
+  commit(types.REMOVE_ERRORS)
+}
+
 export default {
   addAlert,
-  removeAlert
+  addErrors,
+  removeAlert,
+  removeErrors
 }

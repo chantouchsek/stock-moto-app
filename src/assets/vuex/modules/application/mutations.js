@@ -7,7 +7,9 @@
 
 import {
   ADD_ALERT,
-  REMOVE_ALERT
+  ADD_ERRORS,
+  REMOVE_ALERT,
+  REMOVE_ERRORS
 } from './mutation-types'
 
 export default {
@@ -21,6 +23,15 @@ export default {
     state.alert = alert
   },
 
+  /**
+   * Mutation which will add a new errors.
+   *
+   * @param {Object} state The current state of the store.
+   * @param {Object} errors The newly added errors.
+   */
+  [ADD_ERRORS] (state, errors) {
+    state.errors = errors
+  },
 
   /**
    * Mutation which will remove a alert.
@@ -30,5 +41,14 @@ export default {
    */
   [REMOVE_ALERT] (state, alert) {
     state.alert = alert
+  },
+
+  /**
+   * Mutation which will remove errors.
+   *
+   * @param {Object} state The current state of the store.
+   */
+  [REMOVE_ERRORS] (state) {
+    state.errors = []
   }
 }
