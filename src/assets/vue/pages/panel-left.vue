@@ -16,7 +16,7 @@
             <f7-list-item link="/categories/" title="Categories" panel-close></f7-list-item>
             <f7-list-item link="/form/" title="Attributes" panel-close></f7-list-item>
             <f7-list-item link="/roles/" title="Roles" panel-close></f7-list-item>
-            <f7-list-item link="/form/" title="Suppliers" panel-close></f7-list-item>
+            <f7-list-item link="/suppliers/" title="Suppliers" panel-close></f7-list-item>
             <f7-list-item link="/form/" title="Products" panel-close></f7-list-item>
             <f7-list-item link="/form/" title="Customers" panel-close></f7-list-item>
             <f7-list-item link="/form/" title="Attendances" panel-close></f7-list-item>

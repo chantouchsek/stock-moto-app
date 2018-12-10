@@ -1,7 +1,7 @@
 <template>
     <f7-page>
         <f7-navbar title="New Category" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Add new role</f7-block-title>
+        <f7-block-title>Add new category</f7-block-title>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="Name"
@@ -15,6 +15,25 @@
                     @input="form.name = $event.target.value"
             >
             </f7-list-input>
+            <f7-list-input
+                    label="Description"
+                    floating-label
+                    placeholder="Category description"
+                    info="Default validation"
+                    type="textarea"
+                    resizable
+                    :value="form.description"
+                    @input="form.description = $event.target.value"
+            >
+            </f7-list-input>
+            <f7-list-item
+                    checkbox
+                    title="Active"
+                    name="active"
+                    :value="form.active"
+                    @change="checkActive"
+                    :checked="!!form.active"
+            ></f7-list-item>
         </f7-list>
         <f7-block>
             <f7-row>
@@ -27,7 +46,7 @@
 </template>
 <script>
   export default {
-    name: 'create-role',
+    name: 'create-category',
     data () {
       return {
         form: {}

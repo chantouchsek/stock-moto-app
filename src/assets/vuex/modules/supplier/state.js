@@ -1,8 +1,8 @@
 /* ============
- * Role State
+ * Supplier State
  * ============
  *
- * The state of the role module.
+ * The state of the supplier module.
  */
 
 export default {

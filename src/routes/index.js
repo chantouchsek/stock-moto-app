@@ -40,6 +40,10 @@ import CategoryEdit from 'pages/categories/edit'
 // Roles Pages
 import RoleIndex from 'pages/roles/index'
 
+// Supplier page
+import SupplierIndex from 'pages/supplier/index'
+import SupplierEdit from 'pages/supplier/edit'
+
 /**
  * The routes
  *
@@ -154,6 +158,16 @@ export default [
         path: '/roles/',
         name: 'roles.index',
         component: RoleIndex
+      },
+      {
+        path: '/suppliers/',
+        name: 'suppliers.index',
+        component: SupplierIndex
+      },
+      {
+        path: '/suppliers/:uuid/edit',
+        name: 'suppliers.edit',
+        component: SupplierEdit
       }
     ]
   }

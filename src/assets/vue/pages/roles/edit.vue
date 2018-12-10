@@ -6,7 +6,7 @@
             <f7-list-input
                     label="Name"
                     type="text"
-                    placeholder="Category name"
+                    placeholder="Role name"
                     info="Default validation"
                     required
                     validate
@@ -15,35 +15,16 @@
                     @input="form.name = $event.target.value"
             >
             </f7-list-input>
-            <f7-list-input
-                    label="Description"
-                    floating-label
-                    placeholder="Category description"
-                    info="Default validation"
-                    type="textarea"
-                    resizable
-                    :value="form.description"
-                    @input="form.description = $event.target.value"
-            >
-            </f7-list-input>
-            <f7-list-item
-                    checkbox
-                    title="Active"
-                    name="active"
-                    :value="form.active"
-                    @change="checkActive"
-                    :checked="!!form.active"
-            ></f7-list-item>
         </f7-list>
         <f7-block>
             <f7-row>
                 <f7-col>
-                    <f7-button fill @click.native="updateCategory" big outline round>
+                    <f7-button fill @click.native="updateRole" big outline round>
                         <i class="f7-icons">edit</i> Edit
                     </f7-button>
                 </f7-col>
                 <f7-col>
-                    <f7-button fill color="red" big outline round @click.native="destroyCategory(form)">
+                    <f7-button fill color="red" big outline round @click.native="destroyRole(form)">
                         <i class="f7-icons">trash</i> Delete
                     </f7-button>
                 </f7-col>
@@ -57,10 +38,10 @@
     </f7-page>
 </template>
 <script>
-  import CategoryProxy from '@/proxies/CategoryProxy'
-  import CategoryTransformer from '@/transformers/CategoryTransformer'
+  import RoleProxy from '@/proxies/RoleProxy'
+  import RoleTransformer from '@/transformers/RoleTransformer'
 
-  const proxy = new CategoryProxy()
+  const proxy = new RoleProxy()
 
   export default {
     name: 'edit-category',
@@ -83,17 +64,17 @@
        *
        * @param {number | string} id The id of the category.
        */
-      fetchCategory (id) {
+      fetchRole (id) {
         proxy.find(id)
           .then((data) => {
-            this.form = CategoryTransformer.fetch(data)
+            this.form = RoleTransformer.fetch(data)
           })
       },
       /**
        * Method to edit an existing category.
        * It'll dispatch the update action on the category module.
        */
-      updateCategory () {
+      updateRole () {
         const self = this
         self.$f7.preloader.show()
         self.$store.dispatch('category/update', self.form)
@@ -101,7 +82,7 @@
       /**
        * Delete the resource
        */
-      destroyCategory (category) {
+      destroyRole (category) {
         const self = this
         const app = self.$f7
         app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
@@ -115,7 +96,7 @@
      * It'll fetch the quest using the given quest identifier.
      */
     mounted () {
-      this.fetchCategory(this.$f7route.params.uuid)
+      this.fetchRole(this.$f7route.params.uuid)
     },
     watch: {
       '$store.state.application': {
