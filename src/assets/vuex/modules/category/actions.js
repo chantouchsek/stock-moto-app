@@ -67,16 +67,22 @@ const create = ({ commit }, category) => {
   const transformedCategory = CategoryTransformer.send(category)
 
   proxy.create(transformedCategory)
-    .then(() => {
+    .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Category has been created!'
+        message: response.message,
+        created: true
       })
     })
-    .catch(() => {
+    .catch((response) => {
       store.dispatch('application/addAlert', {
         type: 'danger',
         message: 'The category could not be created'
+      })
+      store.dispatch('application/addErrors', {
+        type: 'danger',
+        errors: response.errors,
+        error: true
       })
     })
 }
