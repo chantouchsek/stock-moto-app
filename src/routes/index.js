@@ -29,7 +29,7 @@ import SaleIndex from 'pages/sales/index'
 import SaleShow from 'pages/sales/show'
 import SaleAdd from 'pages/sales/create'
 
-// Authentication page
+// Authentication Page
 import Login from 'pages/auth/login'
 
 // Categories Page
@@ -37,15 +37,15 @@ import CategoryIndex from 'pages/categories/index'
 import CategoryCreate from 'pages/categories/create'
 import CategoryEdit from 'pages/categories/edit'
 
-// Roles Pages
+// Roles Page
 import RoleIndex from 'pages/roles/index'
 
-// Supplier page
+// Supplier Page
 import SupplierIndex from 'pages/suppliers/index'
 import SupplierCreate from 'pages/suppliers/create'
 import SupplierEdit from 'pages/suppliers/edit'
 
-// Makes page
+// Makes Page
 import MakeIndex from 'pages/makes/index'
 import MakeCreate from 'pages/makes/create'
 import MakeEdit from 'pages/makes/edit'
@@ -59,6 +59,11 @@ import ModelEdit from 'pages/models/edit'
 import CustomerIndex from 'pages/customers/index'
 import CustomerCreate from 'pages/customers/create'
 import CustomerEdit from 'pages/customers/edit'
+
+// Products Page
+import ProductIndex from 'pages/products/index'
+import ProductCreate from 'pages/products/create'
+import ProductEdit from 'pages/products/edit'
 
 /**
  * The routes
@@ -234,6 +239,21 @@ export default [
         path: '/customers/:uuid/edit/',
         name: 'customers.edit',
         component: CustomerEdit
+      },
+      {
+        path: '/products/',
+        name: 'products.index',
+        component: ProductIndex
+      },
+      {
+        path: '/products-create/',
+        name: 'products.create',
+        component: ProductCreate
+      },
+      {
+        path: '/products/:uuid/edit/',
+        name: 'products.edit',
+        component: ProductEdit
       }
     ]
   }

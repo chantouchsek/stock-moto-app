@@ -2,7 +2,7 @@
  * Supplier Transformer
  * ============
  *
- * The transformer for a suppliers.
+ * The transformer for a supplier.
  */
 
 import Transformer from './BaseTransformer'
@@ -10,9 +10,9 @@ import Supplier from '@/models/Supplier'
 
 class SupplierTransformer extends Transformer {
   /**
-   * Method used to transform a fetched suppliers.
+   * Method used to transform a fetched supplier.
    *
-   * @returns {Supplier} A suppliers model.
+   * @returns {Supplier} A supplier model.
    */
   static fetch (supplier) {
     return new Supplier({
@@ -27,9 +27,9 @@ class SupplierTransformer extends Transformer {
   }
 
   /**
-   * Method used to transform a send suppliers.
+   * Method used to transform a send supplier.
    *
-   * @returns {Object} The transformed suppliers.
+   * @returns {Object} The transformed supplier.
    */
   static send (supplier) {
     return {
