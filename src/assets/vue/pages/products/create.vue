@@ -21,6 +21,8 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.modelId"
                     @input="form.modelId = $event.target.value"
             >
@@ -34,6 +36,8 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.makeId"
                     @input="form.makeId = $event.target.value"
             >
@@ -47,11 +51,13 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
-                    :value="form.makeId"
-                    @input="form.makeId = $event.target.value"
+                    required
+                    validate
+                    :value="form.categoryId"
+                    @input="form.categoryId = $event.target.value"
             >
-                <option v-for="(m,index) in make.all" :key="`make-${index}`" :value="m.id">
-                    {{ m.name }}
+                <option v-for="(cat,index) in category.all" :key="`category-${index}`" :value="cat.id">
+                    {{ cat.name }}
                 </option>
             </f7-list-input>
 
@@ -60,8 +66,10 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
-                    :value="form.makeId"
-                    @input="form.makeId = $event.target.value"
+                    required
+                    validate
+                    :value="form.supplierId"
+                    @input="form.supplierId = $event.target.value"
             >
                 <option v-for="(m,index) in make.all" :key="`make-${index}`" :value="m.id">
                     {{ m.name }}
@@ -149,7 +157,7 @@
             </f7-list-input>
 
             <f7-list-input
-                    label="Plat number"
+                    label="Plate number"
                     type="text"
                     placeholder="Product plate number"
                     required
@@ -168,14 +176,14 @@
                     required
                     validate
                     clear-button
-                    :value="form.plateNumber"
-                    @input="form.plateNumber = $event.target.value"
+                    :value="form.frameNumber"
+                    @input="form.frameNumber = $event.target.value"
             >
                 <span slot="info"></span>
             </f7-list-input>
 
             <f7-list-input
-                    label="Frame code"
+                    label="Product code"
                     type="text"
                     placeholder="Product code"
                     required
@@ -202,7 +210,7 @@
 
             <f7-list-input
                     label="Year"
-                    type="date"
+                    type="number"
                     placeholder="The product made year"
                     info="With custom error message"
                     error-message="Select a valid date please!"
@@ -224,17 +232,23 @@
             <f7-block>
                 <f7-row>
                     <f7-col>
-                        <f7-button fill @click.native="createProduct" big outline round>
-                            <i class="f7-icons">add_round</i> Add
+                        <f7-button fill @click.native="updateProduct" big outline round>
+                            <i class="f7-icons">edit</i> Edit
                         </f7-button>
                     </f7-col>
                     <f7-col>
-                        <f7-button fill @click.native="goBack" big outline round color="orange">
+                        <f7-button fill color="red" big outline round @click.native="destroyProduct(form)">
+                            <i class="f7-icons">trash</i> Delete
+                        </f7-button>
+                    </f7-col>
+                    <f7-col>
+                        <f7-button fill @click="$f7router.back()" big outline round>
                             <i class="f7-icons">chevron_left</i> Cancel
                         </f7-button>
                     </f7-col>
                 </f7-row>
             </f7-block>
+
         </f7-list>
     </f7-page>
 </template>
@@ -249,7 +263,7 @@
       }
     },
     computed: {
-      ...mapState(['make', 'model']),
+      ...mapState(['make', 'model', 'category']),
       errorMessage () {
         let message = this.$store.state.application.errors
         if (Object.keys(message).length && typeof message !== 'undefined') {
@@ -296,6 +310,9 @@
         proxy.removeParameters(['q', 'order', 'sort', 'page'])
       })
       self.$store.dispatch('model/reload', (proxy) => {
+        proxy.removeParameters(['q', 'order', 'sort', 'page'])
+      })
+      self.$store.dispatch('category/reload', (proxy) => {
         proxy.removeParameters(['q', 'order', 'sort', 'page'])
       })
     },

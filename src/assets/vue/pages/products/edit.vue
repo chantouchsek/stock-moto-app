@@ -21,6 +21,8 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.modelId"
                     @input="form.modelId = $event.target.value"
             >
@@ -34,6 +36,8 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.makeId"
                     @input="form.makeId = $event.target.value"
             >
@@ -47,11 +51,13 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.categoryId"
                     @input="form.categoryId = $event.target.value"
             >
-                <option v-for="(m,index) in make.all" :key="`make-${index}`" :value="m.id">
-                    {{ m.name }}
+                <option v-for="(cat,index) in category.all" :key="`category-${index}`" :value="cat.id">
+                    {{ cat.name }}
                 </option>
             </f7-list-input>
 
@@ -60,6 +66,8 @@
                     type="select"
                     defaultValue=""
                     placeholder="Please choose..."
+                    required
+                    validate
                     :value="form.supplierId"
                     @input="form.supplierId = $event.target.value"
             >
@@ -149,7 +157,7 @@
             </f7-list-input>
 
             <f7-list-input
-                    label="Plat number"
+                    label="Plate number"
                     type="text"
                     placeholder="Product plate number"
                     required
@@ -168,14 +176,14 @@
                     required
                     validate
                     clear-button
-                    :value="form.plateNumber"
-                    @input="form.plateNumber = $event.target.value"
+                    :value="form.frameNumber"
+                    @input="form.frameNumber = $event.target.value"
             >
                 <span slot="info"></span>
             </f7-list-input>
 
             <f7-list-input
-                    label="Frame code"
+                    label="Product code"
                     type="text"
                     placeholder="Product code"
                     required
@@ -260,7 +268,7 @@
       }
     },
     computed: {
-      ...mapState(['make', 'model'])
+      ...mapState(['make', 'model', 'category'])
     },
     methods: {
       checkActive (event) {
@@ -314,6 +322,9 @@
         proxy.removeParameters(['q', 'order', 'sort', 'page'])
       })
       self.$store.dispatch('model/reload', (proxy) => {
+        proxy.removeParameters(['q', 'order', 'sort', 'page'])
+      })
+      self.$store.dispatch('category/reload', (proxy) => {
         proxy.removeParameters(['q', 'order', 'sort', 'page'])
       })
     },

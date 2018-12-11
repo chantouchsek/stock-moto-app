@@ -2,6 +2,7 @@
     <f7-page
             ptr
             infinite
+            :infinite-distance="50"
             :infinite-preloader="showPreloader"
             @infinite="setQueryScroll"
             @ptr:refresh="reloadProduct"
