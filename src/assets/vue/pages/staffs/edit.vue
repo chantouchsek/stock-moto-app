@@ -31,11 +31,13 @@
             <f7-list-input
                     label="Gender"
                     type="select"
-                    defaultValue="Male"
+                    defaultValue=""
                     placeholder="Please choose..."
+                    :value="form.gender"
+                    @input="form.gender = $event.target.value"
             >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
             </f7-list-input>
 
             <f7-list-input
@@ -92,17 +94,6 @@
                     clear-button
                     :value="form.payDay"
                     @input="form.payDay = $event.target.value"
-            >
-            </f7-list-input>
-
-            <f7-list-input
-                    label="URL"
-                    type="url"
-                    placeholder="Your URL"
-                    info="Default URL validation"
-                    required
-                    validate
-                    clear-button
             >
             </f7-list-input>
 

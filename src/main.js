@@ -22,7 +22,7 @@ import MaterialIcons from 'material-design-icons/iconfont/material-icons.css'
 import FontAwesome from 'font-awesome/css/font-awesome.css'
 
 // Import App Custom Styles
-// import AppStyles from './assets/sass/main.scss'
+import FontSize from './assets/sass/font-size.scss'
 
 // Import App Component
 import app from '@/app'
