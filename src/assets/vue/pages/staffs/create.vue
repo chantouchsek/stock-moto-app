@@ -258,6 +258,18 @@
           })
         }
       })
+    },
+    watch: {
+      '$store.state.application': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (Object.keys(value.alert).length && value.alert.created) {
+            const self = this
+            self.$f7router.back()
+          }
+        }
+      }
     }
   }
 </script>

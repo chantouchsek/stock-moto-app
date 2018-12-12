@@ -67,11 +67,13 @@ const create = ({ commit }, staff) => {
   const transformedStaff = StaffTransformer.send(staff)
 
   proxy.create(transformedStaff)
-    .then(() => {
+    .then((response) => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Staff has been created!'
+        message: response.message,
+        created: true
       })
+      store.dispatch('staff/created', response.data)
     })
     .catch(() => {
       store.dispatch('application/addAlert', {
