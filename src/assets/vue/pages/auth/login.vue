@@ -1,6 +1,11 @@
 <template>
     <f7-page no-toolbar no-navbar no-swipeback login-screen>
-        <f7-login-screen-title>Login</f7-login-screen-title>
+        <div class="avatar-upload">
+            <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                </div>
+            </div>
+        </div>
         <f7-list form>
             <f7-list-input
                     label="Email"
