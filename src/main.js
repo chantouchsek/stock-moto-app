@@ -23,6 +23,7 @@ import FontAwesome from 'font-awesome/css/font-awesome.css'
 
 // Import App Custom Styles
 import FontSize from './assets/sass/font-size.scss'
+import AppStyle from './assets/sass/app.scss'
 
 // Import App Component
 import app from '@/app'

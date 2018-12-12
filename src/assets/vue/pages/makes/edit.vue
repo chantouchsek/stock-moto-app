@@ -39,17 +39,17 @@
             <f7-row>
                 <f7-col>
                     <f7-button fill @click.native="updateMake" big outline round>
-                        <i class="f7-icons">edit</i> Edit
+                        <i class="f7-icons size-16">edit</i> Edit
                     </f7-button>
                 </f7-col>
                 <f7-col>
                     <f7-button fill color="red" big outline round @click.native="destroyMake(form)">
-                        <i class="f7-icons">trash</i> Delete
+                        <i class="f7-icons size-16">trash</i> Delete
                     </f7-button>
                 </f7-col>
                 <f7-col>
                     <f7-button fill @click="$f7router.back()" big outline round>
-                        <i class="f7-icons">chevron_left</i> Cancel
+                        <i class="f7-icons size-16">chevron_left</i> Cancel
                     </f7-button>
                 </f7-col>
             </f7-row>

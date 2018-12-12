@@ -203,14 +203,6 @@
           this.$store.dispatch('role/reload', (proxy) => {
             proxy.removeParameters(['q', 'order', 'sort'])
           })
-          // this.$echo
-          //   .channel('role')
-          //   .listen('User.Created', role => this.$store.dispatch('role/created', role))
-          //   .listen('User.Updated', (role) => {
-          //     console.log(role)
-          //     this.$store.dispatch('role/updated', role)
-          //   })
-          //   .listen('User.Deleted', role => this.$store.dispatch('role/destroyed', role))
         }
       })
     }

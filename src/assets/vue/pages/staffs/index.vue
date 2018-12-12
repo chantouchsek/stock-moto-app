@@ -22,16 +22,16 @@
 
         <f7-list media-list>
             <f7-list-item
-                    v-for="(cg,index) in staff.all"
+                    v-for="(user,index) in staff.all"
                     swipeout
-                    @swipeout:delete="destroyResource(cg)"
+                    @swipeout:delete="destroyResource(user)"
                     :key="`staff-${index}`"
                     after="Edit"
-                    @click="getEditRoute(cg.uuid)"
+                    @click="getEditRoute(user.uuid)"
                     link
-                    :title="cg.name"
-                    :subtitle="`Position: ${cg.name}`">
-                <img slot="media" :src="`https://picsum.photos/2${index}`" width="44"/>
+                    :title="user.name"
+                    :subtitle="`Position: ${user.name}`">
+                <img slot="media" :src="user.avatarUrl" width="44" :alt="user.fullName"/>
                 <f7-swipeout-actions right>
                     <f7-swipeout-button delete>
                         Delete

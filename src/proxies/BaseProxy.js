@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue'
 
 class BaseProxy {
   /**
@@ -7,9 +7,9 @@ class BaseProxy {
    * @param {string} endpoint   The endpoint being used.
    * @param {Object} parameters The parameters for the request.
    */
-  constructor(endpoint, parameters = {}) {
-    this.endpoint = endpoint;
-    this.parameters = parameters;
+  constructor (endpoint, parameters = {}) {
+    this.endpoint = endpoint
+    this.parameters = parameters
   }
 
   /**
@@ -19,12 +19,12 @@ class BaseProxy {
    *
    * @returns {BaseProxy} The instance of the proxy.
    */
-  setParameters(parameters) {
+  setParameters (parameters) {
     Object.keys(parameters).forEach((key) => {
-      this.parameters[key] = parameters[key];
-    });
+      this.parameters[key] = parameters[key]
+    })
 
-    return this;
+    return this
   }
 
   /**
@@ -35,10 +35,10 @@ class BaseProxy {
    *
    * @returns {BaseProxy} The instance of the proxy.
    */
-  setParameter(parameter, value) {
-    this.parameters[parameter] = value;
+  setParameter (parameter, value) {
+    this.parameters[parameter] = value
 
-    return this;
+    return this
   }
 
   /**
@@ -48,12 +48,12 @@ class BaseProxy {
    *
    * @returns {BaseProxy} The instance of the proxy.
    */
-  removeParameters(parameters) {
+  removeParameters (parameters) {
     parameters.forEach((parameter) => {
-      delete this.parameters[parameter];
-    });
+      delete this.parameters[parameter]
+    })
 
-    return this;
+    return this
   }
 
   /**
@@ -63,10 +63,10 @@ class BaseProxy {
    *
    * @returns {BaseProxy} The instance of the proxy.
    */
-  removeParameter(parameter) {
-    delete this.parameters[parameter];
+  removeParameter (parameter) {
+    delete this.parameters[parameter]
 
-    return this;
+    return this
   }
 
   /**
@@ -78,20 +78,20 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  submit(requestType, url, data = null) {
+  submit (requestType, url, data = null) {
     return new Promise((resolve, reject) => {
       Vue.$http[requestType](url + this.getParameterString(), data)
         .then((response) => {
-          resolve(response.data);
+          resolve(response.data)
         })
         .catch(({ response }) => {
           if (response) {
-            reject(response.data);
+            reject(response.data)
           } else {
-            reject();
+            reject()
           }
-        });
-    });
+        })
+    })
   }
 
   /**
@@ -99,8 +99,8 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  all() {
-    return this.submit('get', `/${this.endpoint}`);
+  all () {
+    return this.submit('get', `/${this.endpoint}`)
   }
 
   /**
@@ -110,8 +110,8 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  find(id) {
-    return this.submit('get', `/${this.endpoint}/${id}`);
+  find (id) {
+    return this.submit('get', `/${this.endpoint}/${id}`)
   }
 
   /**
@@ -121,8 +121,8 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  create(item) {
-    return this.submit('post', `/${this.endpoint}`, item);
+  create (item) {
+    return this.submit('post', `/${this.endpoint}`, item)
   }
 
   /**
@@ -133,8 +133,8 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  update(id, item) {
-    return this.submit('put', `/${this.endpoint}/${id}`, item);
+  update (id, item) {
+    return this.submit('put', `/${this.endpoint}/${id}`, item)
   }
 
   /**
@@ -144,8 +144,8 @@ class BaseProxy {
    *
    * @returns {Promise} The result in a promise.
    */
-  destroy(id) {
-    return this.submit('delete', `/${this.endpoint}/${id}`);
+  destroy (id) {
+    return this.submit('delete', `/${this.endpoint}/${id}`)
   }
 
   /**
@@ -153,15 +153,15 @@ class BaseProxy {
    *
    * @returns {string} The parameter string.
    */
-  getParameterString() {
-    const keys = Object.keys(this.parameters);
+  getParameterString () {
+    const keys = Object.keys(this.parameters)
 
     const parameterStrings = keys
       .filter(key => !!this.parameters[key])
-      .map(key => `${key}=${this.parameters[key]}`);
+      .map(key => `${key}=${this.parameters[key]}`)
 
-    return parameterStrings.length === 0 ? '' : `?${parameterStrings.join('&')}`;
+    return parameterStrings.length === 0 ? '' : `?${parameterStrings.join('&')}`
   }
 }
 
-export default BaseProxy;
+export default BaseProxy

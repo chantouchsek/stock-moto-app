@@ -2,6 +2,21 @@
     <f7-page>
         <f7-navbar title="Edit Staff" back-link="Back" sliding></f7-navbar>
         <f7-block-title>Edit: {{ form.name }}</f7-block-title>
+        <div class="avatar-upload">
+            <div class="avatar-edit">
+                <input type='file' id="imageUpload"
+                       accept=".png, .jpg, .jpeg"
+                       @change="handleFileUpload"
+                       ref="avatar"
+                />
+                <label for="imageUpload"></label>
+            </div>
+            <div class="avatar-preview">
+                <div id="imagePreview"
+                     :style="{ 'background-image': 'url(' + form.avatarUrl + ')' }"
+                ></div>
+            </div>
+        </div>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="First Name"
@@ -124,7 +139,7 @@
             <f7-block-title>Roles</f7-block-title>
             <f7-list>
                 <f7-list-item
-                        v-for="(role,index) in roles"
+                        v-for="(role,index) in role.all"
                         checkbox
                         :key="`role-${index}`"
                         :title="role.name"
@@ -134,45 +149,48 @@
                         :value="role.name"
                 ></f7-list-item>
             </f7-list>
+
+            <f7-block>
+                <f7-row>
+                    <f7-col>
+                        <f7-button fill @click.native="updateStaff" big outline round>
+                            <i class="f7-icons size-16">edit</i> Edit
+                        </f7-button>
+                    </f7-col>
+                    <f7-col v-if="$store.state.auth.user.id !== form.id">
+                        <f7-button fill color="red" big outline round @click.native="destroyStaff(form)">
+                            <i class="f7-icons size-16">trash</i> Delete
+                        </f7-button>
+                    </f7-col>
+                    <f7-col>
+                        <f7-button fill @click.native="$f7router.back()" big outline round color="orange">
+                            <i class="f7-icons size-16">chevron_left</i> Cancel
+                        </f7-button>
+                    </f7-col>
+                </f7-row>
+            </f7-block>
+
         </f7-list>
-        <f7-block>
-            <f7-row>
-                <f7-col>
-                    <f7-button fill @click.native="updateStaff" big outline round>
-                        <i class="f7-icons">edit</i> Edit
-                    </f7-button>
-                </f7-col>
-                <f7-col v-if="$store.state.auth.user.id !== form.id">
-                    <f7-button fill color="red" big outline round @click.native="destroyStaff(form)">
-                        <i class="f7-icons">trash</i> Delete
-                    </f7-button>
-                </f7-col>
-                <f7-col>
-                    <f7-button fill @click.native="$f7router.back()" big outline round color="orange">
-                        <i class="f7-icons">chevron_left</i> Cancel
-                    </f7-button>
-                </f7-col>
-            </f7-row>
-        </f7-block>
     </f7-page>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import StaffProxy from '@/proxies/StaffProxy'
-  import RoleProxy from '@/proxies/RoleProxy'
   import StaffTransformer from '@/transformers/StaffTransformer'
-  import RoleTransformer from '@/transformers/RoleTransformer'
 
   const proxy = new StaffProxy()
-  const roleProxy = new RoleProxy()
 
   export default {
     name: 'edit-staff',
     data () {
       return {
-        form: { roles: [] },
-        roles: []
+        form: { roles: [], avatarUrl: '' },
+        avatar: ''
       }
+    },
+    computed: {
+      ...mapState(['role'])
     },
     methods: {
       /**
@@ -184,12 +202,6 @@
         proxy.find(id)
           .then((data) => {
             this.form = StaffTransformer.fetch(data)
-          })
-      },
-      fetchRoles () {
-        roleProxy.all()
-          .then((response) => {
-            this.roles = RoleTransformer.fetchCollection(response.data)
           })
       },
       /**
@@ -220,6 +232,79 @@
         } else {
           self.form.roles.splice(self.form.roles.indexOf(value), 1)
         }
+      },
+      /*
+        Submits the avatar to the server
+      */
+      submitFile () {
+        /*
+        *Initialize the form data
+        */
+        let formData = new FormData()
+        const self = this
+
+        /*
+            Add the form data we need to submit
+        */
+        formData.append('avatar', self.avatar)
+
+        /*
+          Make the request to the POST /upload-avatar URL
+        */
+        proxy.uploadAvatar(self.form.uuid, formData).then((response) => {
+          self.form.avatarUrl = response.data.avatar_url
+          self.$store.dispatch('staff/updated', response.data)
+        }).catch((error) => {
+          self.fetchStaff(self.$f7route.params.uuid)
+          self.$f7.dialog.alert(error.message, 'Warning!')
+        })
+      },
+      /*
+        Handles a change on the avatar upload
+      */
+      handleFileUpload () {
+        /*
+          Set the local avatar variable to what the user has selected.
+        */
+
+        const self = this
+        self.avatar = self.$refs.avatar.files[0]
+
+        /*
+          Initialize a File Reader object
+        */
+        let reader = new FileReader()
+
+        /*
+          Add an event listener to the reader that when the avatar
+          has been loaded, we flag the show preview as true and set the
+          image to be what was read from the reader.
+        */
+        reader.addEventListener("load", function () {
+          self.form.avatarUrl = reader.result
+        }.bind(self), false)
+
+        /*
+          Check to see if the avatar is not empty.
+        */
+        if (self.avatar) {
+          /*
+            Ensure the avatar is an image avatar.
+          */
+          if (/\.(jpe?g|png|gif)$/i.test(self.avatar.name)) {
+            /*
+              Fire the readAsDataURL method which will read the avatar in and
+              upon completion fire a 'load' event which we will listen to and
+              display the image in the preview.
+            */
+            reader.readAsDataURL(self.avatar)
+
+            /**
+             * Submit the selected image
+             */
+            self.submitFile()
+          }
+        }
       }
     },
     /**
@@ -228,7 +313,13 @@
      */
     mounted () {
       this.fetchStaff(this.$f7route.params.uuid)
-      this.fetchRoles()
+      this.$store.watch((state) => {
+        if (state.auth.authenticated) {
+          this.$store.dispatch('role/reload', (proxy) => {
+            proxy.removeParameters(['q', 'order', 'sort'])
+          })
+        }
+      })
     },
     watch: {
       '$store.state.application': {
