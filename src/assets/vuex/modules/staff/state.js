@@ -12,5 +12,6 @@ export default {
     totalPages: 0,
     currentPage: 1,
     limit: 5
-  }
+  },
+  show: { avatarUrl: '' }
 }

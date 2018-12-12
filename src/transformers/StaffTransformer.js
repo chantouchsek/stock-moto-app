@@ -18,7 +18,7 @@ class StaffTransformer extends Transformer {
     return new Staff({
       id: staff.id,
       uuid: staff.uuid,
-      name: staff.name,
+      fullName: staff.full_name,
       firstName: staff.first_name,
       lastName: staff.last_name,
       email: staff.email,

@@ -1,7 +1,7 @@
 <template>
     <f7-page>
         <f7-navbar title="Edit Staff" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Edit: {{ form.name }}</f7-block-title>
+        <f7-block-title>Edit: {{ form.fullName }}</f7-block-title>
         <div class="avatar-upload">
             <div class="avatar-edit">
                 <input type='file' id="imageUpload"
@@ -254,6 +254,7 @@
         proxy.uploadAvatar(self.form.uuid, formData).then((response) => {
           self.form.avatarUrl = response.data.avatar_url
           self.$store.dispatch('staff/updated', response.data)
+          self.$store.dispatch('staff/show', this.$f7route.params.uuid)
         }).catch((error) => {
           self.fetchStaff(self.$f7route.params.uuid)
           self.$f7.dialog.alert(error.message, 'Warning!')

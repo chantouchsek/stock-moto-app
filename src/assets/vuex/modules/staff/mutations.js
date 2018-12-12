@@ -8,6 +8,7 @@
 import store from '@/assets/vuex'
 import {
   ALL,
+  SHOW,
   RELOAD,
   CREATED,
   UPDATED,
@@ -25,6 +26,16 @@ export default {
   [ALL] (state, { staffs, pagination }) {
     staffs.map((staff) => state.all.push(staff))
     state.pagination = pagination
+  },
+
+  /**
+   * Mutation to update the store with the fetched staff.
+   *
+   * @param {Object} state      The current state of the store.
+   * @param {Array}  show    The fetched staff.
+   */
+  [SHOW] (state, { show }) {
+    state.show = show
   },
 
   /**

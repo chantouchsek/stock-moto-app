@@ -129,6 +129,30 @@ const updated = ({ commit }, staff) => {
   commit(types.UPDATED, StaffTransformer.fetch(staff))
 }
 
+
+/**
+ * Action fired when an staff will be updated.
+ *
+ * @param {function} commit  Commit function to update the store.
+ * @param {int|string}   uuid  The staff that will be updated.
+ */
+const show = ({ commit }, uuid) => {
+  proxy.find(uuid)
+    .then((response) => {
+      const data = {
+        show: StaffTransformer.fetch(response)
+      }
+      commit(types.SHOW, data)
+    })
+    .catch((error) => {
+      console.log(error)
+      store.dispatch('application/addAlert', {
+        type: 'danger',
+        message: 'The staff could not be fetched.'
+      })
+    })
+}
+
 /**
  * Action fired when an staff will be destroyed.
  *
@@ -165,6 +189,7 @@ const destroyed = ({ commit }, staff) => {
 
 export default {
   all,
+  show,
   reload,
   create,
   created,

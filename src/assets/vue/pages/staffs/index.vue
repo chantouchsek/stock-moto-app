@@ -26,15 +26,18 @@
                     swipeout
                     @swipeout:delete="destroyResource(user)"
                     :key="`staff-${index}`"
-                    after="Edit"
-                    @click="getEditRoute(user.uuid)"
+                    after="Info"
+                    @click="getShowRoute(user.uuid)"
                     link
-                    :title="user.name"
-                    :subtitle="`Position: ${user.name}`">
+                    :title="user.fullName"
+                    :subtitle="`Position: ${user.fullName}`">
                 <img slot="media" :src="user.avatarUrl" width="44" :alt="user.fullName"/>
                 <f7-swipeout-actions right>
                     <f7-swipeout-button delete>
                         Delete
+                    </f7-swipeout-button>
+                    <f7-swipeout-button @click="getEditRoute(user.uuid)" color="green">
+                        Edit
                     </f7-swipeout-button>
                 </f7-swipeout-actions>
             </f7-list-item>
@@ -82,7 +85,7 @@
       return {
         query: null,
         pageNumbers: [5, 10, 20, 30, 50, 500],
-        sortBy: 'name',
+        sortBy: 'first_name',
         sortDesc: false,
         busy: false,
         allowInfinite: true,
@@ -135,6 +138,19 @@
       getEditRoute (uuid) {
         this.$f7router.navigate({
           name: 'staffs.edit',
+          params: { uuid: uuid }
+        })
+      },
+      /**
+       * Method used to get the staff route.
+       *
+       * @param {Number} uuid The staff identifier.
+       *
+       * @returns {Object} The staff route.
+       */
+      getShowRoute (uuid) {
+        this.$f7router.navigate({
+          name: 'staffs.show',
           params: { uuid: uuid }
         })
       },

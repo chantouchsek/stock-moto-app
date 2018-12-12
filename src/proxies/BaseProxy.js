@@ -106,7 +106,7 @@ class BaseProxy {
   /**
    * Method used to fetch a single item from the API.
    *
-   * @param {int} id The given identifier.
+   * @param {int|string} id The given identifier.
    *
    * @returns {Promise} The result in a promise.
    */
