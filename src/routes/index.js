@@ -65,6 +65,11 @@ import ProductIndex from 'pages/products/index'
 import ProductCreate from 'pages/products/create'
 import ProductEdit from 'pages/products/edit'
 
+// Colors Page
+import ColorIndex from 'pages/colors/index'
+import ColorCreate from 'pages/colors/create'
+import ColorEdit from 'pages/colors/edit'
+
 /**
  * The routes
  *
@@ -254,6 +259,21 @@ export default [
         path: '/products/:uuid/edit/',
         name: 'products.edit',
         component: ProductEdit
+      },
+      {
+        path: '/colors/',
+        name: 'colors.index',
+        component: ColorIndex
+      },
+      {
+        path: '/colors-create/',
+        name: 'colors.create',
+        component: ColorCreate
+      },
+      {
+        path: '/colors/:uuid/edit/',
+        name: 'colors.edit',
+        component: ColorEdit
       }
     ]
   }

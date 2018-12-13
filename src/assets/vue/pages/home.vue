@@ -15,7 +15,22 @@
         <f7-block>
             <f7-row>
                 <f7-col>
-                    <f7-card content="Stock Moto"></f7-card>
+                    <f7-card>
+                        <f7-card-content :padding="false">
+                            <div class="avatar-upload">
+                                <div class="avatar-preview">
+                                    <div id="imagePreview"
+                                         style="background-image: url(http://i.pravatar.cc/500?img=7);"
+                                    ></div>
+                                </div>
+                            </div>
+                        </f7-card-content>
+                        <f7-card-footer class="no-border">
+                            <f7-link></f7-link>
+                            <f7-link>Stock Moto</f7-link>
+                            <f7-link></f7-link>
+                        </f7-card-footer>
+                    </f7-card>
                 </f7-col>
             </f7-row>
             <f7-row>

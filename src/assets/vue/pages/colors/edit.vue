@@ -1,0 +1,137 @@
+<template>
+    <f7-page>
+        <f7-navbar title="Edit Color" back-link="Back" sliding></f7-navbar>
+        <f7-block-title>Edit: {{ form.name }}</f7-block-title>
+        <f7-list no-hairlines-md form>
+            <f7-list-input
+                    label="Name"
+                    type="text"
+                    placeholder="Color name"
+                    info="Default validation"
+                    required
+                    validate
+                    clear-button
+                    :value="form.name"
+                    @input="form.name = $event.target.value"
+            >
+            </f7-list-input>
+            <f7-list-input
+                    label="Description"
+                    floating-label
+                    placeholder="Color description"
+                    info="Default validation"
+                    type="textarea"
+                    resizable
+                    :value="form.description"
+                    @input="form.description = $event.target.value"
+            >
+            </f7-list-input>
+            <f7-list-item
+                    checkbox
+                    title="Active"
+                    name="active"
+                    :value="form.active"
+                    @change="checkActive"
+                    :checked="!!form.active"
+            ></f7-list-item>
+        </f7-list>
+        <f7-block>
+            <f7-row>
+                <f7-col>
+                    <f7-button fill @click.native="updateColor" big outline round>
+                        <i class="f7-icons size-16">edit</i> Edit
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill color="red" big outline round @click.native="destroyColor(form)">
+                        <i class="f7-icons size-16">trash</i> Delete
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill @click="$f7router.back()" big outline round>
+                        <i class="f7-icons size-16">chevron_left</i> Cancel
+                    </f7-button>
+                </f7-col>
+            </f7-row>
+        </f7-block>
+    </f7-page>
+</template>
+<script>
+  import ColorProxy from '@/proxies/ColorProxy'
+  import ColorTransformer from '@/transformers/ColorTransformer'
+
+  const proxy = new ColorProxy()
+
+  export default {
+    name: 'edit-color',
+    data () {
+      return {
+        form: {}
+      }
+    },
+    methods: {
+      checkActive (event) {
+        const self = this;
+        if (event.target.checked) {
+          self.form.active = 1
+          return
+        }
+        self.form.active = 0
+      },
+      /**
+       * Method used to fetch an color.
+       *
+       * @param {number | string} id The id of the color.
+       */
+      fetchColor (id) {
+        proxy.find(id)
+          .then((data) => {
+            this.form = ColorTransformer.fetch(data)
+          })
+      },
+      /**
+       * Method to edit an existing color.
+       * It'll dispatch the update action on the color module.
+       */
+      updateColor () {
+        const self = this
+        self.$f7.preloader.show()
+        self.$store.dispatch('color/update', self.form)
+      },
+      /**
+       * Delete the resource
+       */
+      destroyColor (color) {
+        const self = this
+        const app = self.$f7
+        app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
+          app.preloader.show()
+          self.$store.dispatch('color/destroy', color)
+        })
+      }
+    },
+    /**
+     * This method will be fired once the page has been loaded.
+     * It'll fetch the quest using the given quest identifier.
+     */
+    mounted () {
+      this.fetchColor(this.$f7route.params.uuid)
+    },
+    watch: {
+      '$store.state.application': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (Object.keys(value.alert).length && value.alert.destroyed) {
+            const self = this
+            self.$f7router.back()
+          }
+          if (Object.keys(value.alert).length && value.alert.edited) {
+            const self = this
+            self.$f7router.back()
+          }
+        }
+      }
+    }
+  }
+</script>
