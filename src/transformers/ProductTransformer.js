@@ -56,7 +56,7 @@ class ProductTransformer extends Transformer {
       cost: product.cost,
       qty: product.qty,
       engine_number: product.engineNumber,
-      color: product.color,
+      colors: product.colors,
       plate_number: product.plateNumber,
       frame_number: product.frameNumber,
       status: product.status,

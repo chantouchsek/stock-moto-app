@@ -52,7 +52,21 @@
         </f7-block>
         <f7-popover class="popover-menu">
             <f7-list>
-                <f7-list-item @click.native="logout" title="Logout"></f7-list-item>
+                <f7-list-item link="#" popover-close title="Account">
+                    <f7-icon slot="media" icon="fa fa-user"></f7-icon>
+                </f7-list-item>
+                <f7-list-item link="#" popover-close title="Setting">
+                    <f7-icon slot="media" icon="fa fa-wrench"></f7-icon>
+                </f7-list-item>
+                <f7-list-item link="#" popover-close title="Password">
+                    <f7-icon slot="media" icon="fa fa-key"></f7-icon>
+                </f7-list-item>
+                <f7-list-item link="#" popover-close title="Language">
+                    <f7-icon slot="media" icon="fa fa-language"></f7-icon>
+                </f7-list-item>
+                <f7-list-item link="#" popover-close title="Logout" @click.native="logout">
+                    <f7-icon slot="media" icon="fa fa-unlock"></f7-icon>
+                </f7-list-item>
             </f7-list>
         </f7-popover>
     </f7-page>
