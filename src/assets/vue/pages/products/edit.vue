@@ -160,20 +160,91 @@
 
             <f7-list simple-list>
                 <f7-list-item title="Add Colors: ">
-                    <f7-button raised popup-open=".demo-popup">Open Form</f7-button>
+                    <f7-button raised popup-open=".color-popup">Open Form</f7-button>
                 </f7-list-item>
             </f7-list>
             <div v-if="form.colors.length" class="color-list-attributes"
-                 v-for="(color,index) in form.colors"
+                 v-for="(c,index) in form.colors"
                  :key="`color-selected-${index}`"
             >
-                <f7-block-title>Color: {{ color.name }}</f7-block-title>
-                <f7-list simple-list>
-                    <f7-list-item :title="`Engine number: ${color.engineNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Frame number: ${color.frameNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Plate number: ${color.plateNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Code: ${color.code}`"></f7-list-item>
-                    <f7-list-item title="Status: New"></f7-list-item>
+                <f7-block-title>Color: {{ c.name }}</f7-block-title>
+                <f7-list>
+                    <f7-list-item v-for="(colour,indexColor) in color.all"
+                                  :key="`color-selected-${indexColor}`"
+                                  radio
+                                  :title="colour.name"
+                                  :name="`color-selected-${index}`"
+                                  :value="colour.id"
+                                  :checked="form.colors[index].colorId === colour.id"
+                                  @change="form.colors[index].colorId = $event.target.value"
+                    ></f7-list-item>
+
+                    <f7-list-input
+                            label="Engine number"
+                            type="text"
+                            placeholder="Product engine number"
+                            required
+                            validate
+                            clear-button
+                            :value="form.colors[index].engineNumber"
+                            @input="form.colors[index].engineNumber = $event.target.value"
+                    >
+                        <span slot="info"></span>
+                    </f7-list-input>
+
+                    <f7-list-input
+                            label="Frame number"
+                            type="text"
+                            placeholder="Product frame number"
+                            required
+                            validate
+                            clear-button
+                            :value="form.colors[index].frameNumber"
+                            @input="form.colors[index].frameNumber = $event.target.value"
+                    >
+                        <span slot="info"></span>
+                    </f7-list-input>
+
+                    <f7-list-input
+                            v-if="form.colors[index].status ==='second'"
+                            label="Plate number"
+                            type="text"
+                            placeholder="Product plate number"
+                            validate
+                            clear-button
+                            :value="form.colors[index].plateNumber"
+                            @input="form.colors[index].plateNumber = $event.target.value"
+                    >
+                        <span slot="info"></span>
+                    </f7-list-input>
+
+                    <f7-list-input
+                            label="Product code"
+                            type="text"
+                            placeholder="Product code"
+                            validate
+                            clear-button
+                            :value="form.colors[index].code"
+                            @input="form.colors[index].code = $event.target.value"
+                    >
+                        <span slot="info"></span>
+                    </f7-list-input>
+
+                    <f7-list-item radio
+                                  title="New"
+                                  :name="`status-selected-${index}`"
+                                  value="new"
+                                  :checked="form.colors[index].status === 'new'"
+                                  @change="form.colors[index].status = $event.target.value"
+                    ></f7-list-item>
+
+                    <f7-list-item radio
+                                  title="Second hand"
+                                  :name="`status-selected-${index}`"
+                                  value="second"
+                                  :checked="form.colors[index].status === 'second'"
+                                  @change="form.colors[index].status = $event.target.value"
+                    ></f7-list-item>
                 </f7-list>
             </div>
             <f7-block>
@@ -189,7 +260,7 @@
                         </f7-button>
                     </f7-col>
                     <f7-col>
-                        <f7-button fill @click="$f7router.back()" big outline round>
+                        <f7-button fill @click="goBack" big outline round>
                             <i class="f7-icons size-16">chevron_left</i> Cancel
                         </f7-button>
                     </f7-col>
@@ -197,8 +268,8 @@
             </f7-block>
 
         </f7-list>
-        <!-- Popup Page for Select color !-->
-        <f7-popup class="demo-popup" :opened="popupOpened" @popup:closed="saveColorAttribute">
+
+        <f7-popup class="color-popup" :opened="popupOpened" @popup:closed="saveColorAttribute">
             <f7-page>
                 <f7-navbar title="Select Color">
                     <f7-nav-right>
@@ -232,19 +303,6 @@
                     </f7-list-input>
 
                     <f7-list-input
-                            label="Plate number"
-                            type="text"
-                            placeholder="Product plate number"
-                            required
-                            validate
-                            clear-button
-                            :value="attribute.plateNumber"
-                            @input="attribute.plateNumber = $event.target.value"
-                    >
-                        <span slot="info"></span>
-                    </f7-list-input>
-
-                    <f7-list-input
                             label="Frame number"
                             type="text"
                             placeholder="Product frame number"
@@ -253,6 +311,19 @@
                             clear-button
                             :value="attribute.frameNumber"
                             @input="attribute.frameNumber = $event.target.value"
+                    >
+                        <span slot="info"></span>
+                    </f7-list-input>
+
+                    <f7-list-input
+                            v-if="attribute.status ==='second'"
+                            label="Plate number"
+                            type="text"
+                            placeholder="Product plate number"
+                            validate
+                            clear-button
+                            :value="attribute.plateNumber"
+                            @input="attribute.plateNumber = $event.target.value"
                     >
                         <span slot="info"></span>
                     </f7-list-input>
@@ -268,6 +339,22 @@
                     >
                         <span slot="info"></span>
                     </f7-list-input>
+
+                    <f7-list-item radio
+                                  title="New"
+                                  name="status"
+                                  value="new"
+                                  :checked="attribute.status === 'new'"
+                                  @change="attribute.status = $event.target.value"
+                    ></f7-list-item>
+
+                    <f7-list-item radio
+                                  title="Second hand"
+                                  name="status"
+                                  value="second"
+                                  :checked="attribute.status === 'second'"
+                                  @change="attribute.status = $event.target.value"
+                    ></f7-list-item>
                 </f7-list>
             </f7-page>
         </f7-popup>
@@ -291,7 +378,8 @@
           colorId: '',
           engineNumber: '',
           frameNumber: '',
-          plateNumber: ''
+          plateNumber: '',
+          status: 'new'
         }
       }
     },
@@ -299,14 +387,6 @@
       ...mapState(['make', 'model', 'category', 'color'])
     },
     methods: {
-      checkActive (event) {
-        const self = this;
-        if (event.target.checked) {
-          self.form.active = 1
-          return
-        }
-        self.form.active = 0
-      },
       /**
        * Method used to fetch n product.
        *
@@ -338,6 +418,9 @@
           self.$store.dispatch('product/destroy', product)
         })
       },
+      /**
+       * The method for pushing the new added color to form
+       */
       saveColorAttribute () {
         const self = this
         self.popupOpened = false
@@ -348,9 +431,18 @@
             colorId: '',
             engineNumber: '',
             frameNumber: '',
-            plateNumber: ''
+            plateNumber: '',
+            status: 'new'
           }
         }
+      },
+      /**
+       * Method used to return to the previous page.
+       */
+      goBack () {
+        const self = this
+        self.$f7router.back()
+        self.$store.dispatch('application/removeErrors')
       }
     },
     /**

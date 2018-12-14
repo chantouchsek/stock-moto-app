@@ -70,7 +70,8 @@ const create = ({ commit }, product) => {
     .then(() => {
       store.dispatch('application/addAlert', {
         type: 'success',
-        message: 'Product has been created!'
+        message: 'Product has been created!',
+        created: true
       })
     })
     .catch(() => {
