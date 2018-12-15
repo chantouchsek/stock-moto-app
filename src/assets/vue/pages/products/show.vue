@@ -1,0 +1,92 @@
+<template>
+    <f7-page>
+        <f7-navbar title="Product detail" back-link="Back" sliding>
+            <f7-nav-right>
+                <f7-link @click.navtive="getEditRoute(product.uuid)">
+                    <i class="f7-icons">edit</i>
+                </f7-link>
+            </f7-nav-right>
+        </f7-navbar>
+        <f7-card>
+            <f7-card-content>
+                <f7-list>
+                    <f7-list-item>Name: {{ product.name }}</f7-list-item>
+                    <f7-list-item>Cost: ${{ product.cost }}</f7-list-item>
+                    <f7-list-item>Price: ${{ product.price }}</f7-list-item>
+                    <f7-list-item>Qty: {{ product.qty }}</f7-list-item>
+                    <f7-list-item>Category: {{ product.category ? product.category.name : '' }}</f7-list-item>
+                    <f7-list-item>Make: {{ product.make ? product.make.name : '' }}</f7-list-item>
+                    <f7-list-item>Model: {{ product.model ? product.model.name : '' }}</f7-list-item>
+                    <f7-list-item>Supplier: {{ product.supplier ? product.supplier.name : '' }}</f7-list-item>
+                    <f7-list-item>Import from: {{ product.importFrom }}</f7-list-item>
+                    <f7-list-item>Date import: {{ product.dateImport }}</f7-list-item>
+                    <f7-list-item>Year: {{ product.year }}</f7-list-item>
+                    <f7-list-item>Colors:
+                        <span v-for="(color,index) in product.colors" :key="`color-index-${index}`">
+                            {{ color.name }}
+                        </span>
+                    </f7-list-item>
+                    <f7-list>
+                        <f7-list-group v-for="(color,index) in product.colors" :key="`color-list-${index}`">
+                            <f7-list-item :title="color.name" group-title></f7-list-item>
+                            <f7-list-item :title="`Engine: ${color.engineNumber}`"></f7-list-item>
+                            <f7-list-item :title="`Frame: ${color.frameNumber}`"></f7-list-item>
+                            <f7-list-item :title="`Code: ${color.code}`"></f7-list-item>
+                            <f7-list-item :title="`Plate: ${color.plateNumber}`"></f7-list-item>
+                            <f7-list-item :title="`Sole on: ${color.soleOn}`"></f7-list-item>
+                            <f7-list-item :title="`Status:`" :badge="color.status" badge-color="green"></f7-list-item>
+                        </f7-list-group>
+                    </f7-list>
+                </f7-list>
+            </f7-card-content>
+        </f7-card>
+    </f7-page>
+</template>
+<script>
+  import ProductProxy from '@/proxies/ProductProxy'
+  import ProductTransformer from '@/transformers/ProductTransformer'
+
+  const proxy = new ProductProxy()
+
+  export default {
+    name: 'product-show',
+    data () {
+      return {
+        product: {}
+      }
+    },
+    methods: {
+      async fetchProduct (uuid) {
+        await proxy.find(uuid).then((response) => {
+          this.product = ProductTransformer.fetch(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      /**
+       * Method used to get the product route.
+       *
+       * @param {Number} uuid The product identifier.
+       *
+       * @returns {Object} The product route.
+       */
+      getEditRoute (uuid) {
+        this.$f7router.navigate({
+          name: 'products.edit',
+          params: { uuid: uuid }
+        })
+      }
+    },
+    /**
+     * This method will be fired once the application has been mounted.
+     */
+    mounted () {
+      this.$store.watch((state) => {
+        if (state.auth.authenticated) {
+          // this.$store.dispatch('product/show', this.$f7route.params.uuid)
+          this.fetchProduct(this.$f7route.params.uuid)
+        }
+      })
+    }
+  }
+</script>

@@ -26,14 +26,17 @@
                           @swipeout:delete="destroyProduct(cg)"
                           :key="`cg-${index}`"
                           :title="cg.name"
-                          after="Edit"
-                          @click="getEditRoute(cg.uuid)"
+                          after="Detail"
+                          @click="getShowRoute(cg.uuid)"
                           link
                           :footer="`Category: ${cg.category.name}`"
             >
                 <f7-swipeout-actions right>
                     <f7-swipeout-button delete>
                         Delete
+                    </f7-swipeout-button>
+                    <f7-swipeout-button @click="getEditRoute(cg.uuid)" color="green">
+                        Edit
                     </f7-swipeout-button>
                 </f7-swipeout-actions>
             </f7-list-item>
@@ -174,7 +177,20 @@
           return
         }
         self.showPreloader = true
-      }, 1000)
+      }, 1000),
+      /**
+       * Method used to get the product route.
+       *
+       * @param {Number} uuid The product identifier.
+       *
+       * @returns {Object} The product route.
+       */
+      getShowRoute (uuid) {
+        this.$f7router.navigate({
+          name: 'products.show',
+          params: { uuid: uuid }
+        })
+      }
     },
     /**
      * Available watchers for this page.

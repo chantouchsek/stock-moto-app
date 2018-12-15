@@ -33,7 +33,8 @@ class ProductTransformer extends Transformer {
       category: product.category,
       make: product.make,
       model: product.model,
-      supplier: product.supplier
+      supplier: product.supplier,
+      dateImport: product.date_import
     })
   }
 
@@ -63,6 +64,7 @@ class ProductTransformer extends Transformer {
       code: product.code,
       year: product.year,
       import_from: product.importFrom,
+      date_import: product.dateImport
     }
   }
 }

@@ -63,6 +63,7 @@ import CustomerEdit from 'pages/customers/edit'
 // Products Page
 import ProductIndex from 'pages/products/index'
 import ProductCreate from 'pages/products/create'
+import ProductShow from 'pages/products/show'
 import ProductEdit from 'pages/products/edit'
 
 // Colors Page
@@ -254,6 +255,11 @@ export default [
         path: '/products-create/',
         name: 'products.create',
         component: ProductCreate
+      },
+      {
+        path: '/products/:uuid/show/',
+        name: 'products.show',
+        component: ProductShow
       },
       {
         path: '/products/:uuid/edit/',
