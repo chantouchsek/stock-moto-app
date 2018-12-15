@@ -163,12 +163,12 @@
                     <f7-button raised popup-open=".color-popup">Open Form</f7-button>
                 </f7-list-item>
             </f7-list>
-            <div v-if="form.colors.length" class="color-list-attributes"
-                 v-for="(c,index) in form.colors"
-                 :key="`color-selected-${index}`"
-            >
-                <f7-block-title>Color: {{ c.name }}</f7-block-title>
-                <f7-list>
+
+            <f7-list>
+                <f7-list-group v-for="(c,index) in form.colors"
+                               :key="`color-selected-${index}`"
+                >
+                    <f7-list-item :title="c.name" group-title></f7-list-item>
                     <f7-list-item v-for="(colour,indexColor) in color.all"
                                   :key="`color-selected-${indexColor}`"
                                   radio
@@ -245,8 +245,18 @@
                                   :checked="form.colors[index].status === 'second'"
                                   @change="form.colors[index].status = $event.target.value"
                     ></f7-list-item>
-                </f7-list>
-            </div>
+                    <f7-list-item
+                            swipeout
+                            title="Do u want to delete this item?"
+                    >
+                        <f7-swipeout-actions right>
+                            <f7-swipeout-button color="red" @click="destroyProductColor(form.uuid, c.colorId, index)">
+                                Delete
+                            </f7-swipeout-button>
+                        </f7-swipeout-actions>
+                    </f7-list-item>
+                </f7-list-group>
+            </f7-list>
             <f7-block>
                 <f7-row>
                     <f7-col>
@@ -416,6 +426,28 @@
         app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
           app.preloader.show()
           self.$store.dispatch('product/destroy', product)
+        })
+      },
+      /**
+       * Delete the product color
+       */
+      destroyProductColor (id, colorId, index) {
+        const self = this
+        const app = self.$f7
+        app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
+          app.preloader.show()
+          proxy.destroyColor(id, colorId).then((response) => {
+            self.form.colors.splice(index, 1)
+            app.preloader.hide()
+            app.toast.create({
+              text: response.success.message,
+              position: 'top',
+              closeTimeout: 1000,
+            })
+          }).catch((error) => {
+            app.preloader.hide()
+            app.dialog.alert(error.error.message, 'Info')
+          })
         })
       },
       /**

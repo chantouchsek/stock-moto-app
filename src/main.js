@@ -4,10 +4,10 @@ import Axios from 'axios'
 import store from '@/assets/vuex'
 
 // Import Framework7
-import Framework7 from 'framework7/framework7.esm.bundle.js';
+import Framework7 from 'framework7/framework7.esm.bundle.js'
 
 // Import Framework7 Vue
-import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
+import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js'
 
 // Import F7 Style
 import Framework7CSS from 'framework7/css/framework7.css'
@@ -58,7 +58,7 @@ export default new Vue({
   components: {
     app
   }
-});
+})
 
 // Fix android Back behaviour
 
@@ -72,19 +72,19 @@ document.addEventListener('deviceready', () => {
     // If the side panel is open, close it
     if (document.querySelector('.panel-left.active')) {
       // This will do nothing when the split-view is open
-      return window.f7.closePanel();
+      return window.f7.closePanel()
     }
     // Close modals
     // @TODO How to handle modals we shouldn't close like a login-screen?
     if (document.querySelector('.modal-in')) {
-      return f7.closeModal();
+      return f7.closeModal()
     }
     // If we have a back button, we want it to go back
     if (this.$f7router.history.length > 1) {
-      return this.$f7router.router.back();
+      return this.$f7router.router.back()
     }
     // Default to closing the app
-    return window.navigator.app.exitApp();
-  });
+    return window.navigator.app.exitApp()
+  })
 
-});
+})
