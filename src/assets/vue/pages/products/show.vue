@@ -40,6 +40,25 @@
                 </f7-list>
             </f7-card-content>
         </f7-card>
+        <f7-block>
+            <f7-row>
+                <f7-col>
+                    <f7-button fill @click.native="getEditRoute(product.uuid)" big outline round>
+                        <i class="f7-icons size-16">edit</i> Edit
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill color="red" big outline round @click.native="destroyProduct(product)">
+                        <i class="f7-icons size-16">trash</i> Delete
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill @click="goBack" big outline round color="yellow">
+                        <i class="f7-icons size-16">chevron_left</i> Cancel
+                    </f7-button>
+                </f7-col>
+            </f7-row>
+        </f7-block>
     </f7-page>
 </template>
 <script>
@@ -74,6 +93,26 @@
         this.$f7router.navigate({
           name: 'products.edit',
           params: { uuid: uuid }
+        })
+      },
+
+      /**
+       * Method used to return to the previous page.
+       */
+      goBack () {
+        const self = this
+        self.$f7router.back()
+      },
+
+      /**
+       * Delete the resource
+       */
+      destroyProduct (product) {
+        const self = this
+        const app = self.$f7
+        app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
+          app.preloader.show()
+          self.$store.dispatch('product/destroy', product)
         })
       }
     },

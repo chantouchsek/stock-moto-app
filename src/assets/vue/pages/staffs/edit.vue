@@ -1,7 +1,6 @@
 <template>
     <f7-page>
         <f7-navbar title="Edit Staff" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Edit: {{ form.fullName }}</f7-block-title>
         <div class="avatar-upload">
             <div class="avatar-edit">
                 <input type='file' id="imageUpload"

@@ -6,8 +6,13 @@
             </f7-nav-left>
             <div class="title">Stock Moto</div>
             <f7-nav-right>
+                <f7-link>
+                    <f7-icon icon="fa fa-bell-o">
+                        <f7-badge color="red">5</f7-badge>
+                    </f7-icon>
+                </f7-link>
                 <f7-link popover-open=".popover-menu">
-                    <i class="f7-icons">person</i>
+                    <img src="http://i.pravatar.cc/30?img=1" alt="User Avatar" class="avatar-upload br-100">
                 </f7-link>
             </f7-nav-right>
         </f7-navbar>
@@ -16,20 +21,16 @@
             <f7-row>
                 <f7-col>
                     <f7-card>
-                        <f7-card-content :padding="false">
+                        <f7-card-content>
                             <div class="avatar-upload">
                                 <div class="avatar-preview">
                                     <div id="imagePreview"
                                          style="background-image: url(http://i.pravatar.cc/500?img=7);"
                                     ></div>
                                 </div>
+                                <f7-block-title class="text-align-center">Stock Moto</f7-block-title>
                             </div>
                         </f7-card-content>
-                        <f7-card-footer class="no-border">
-                            <f7-link></f7-link>
-                            <f7-link>Stock Moto</f7-link>
-                            <f7-link></f7-link>
-                        </f7-card-footer>
                     </f7-card>
                 </f7-col>
             </f7-row>

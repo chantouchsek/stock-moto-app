@@ -261,7 +261,7 @@
                 <f7-row>
                     <f7-col>
                         <f7-button fill @click.native="updateProduct" big outline round>
-                            <i class="f7-icons size-16">edit</i> Edit
+                            <i class="f7-icons size-16">edit</i> Save
                         </f7-button>
                     </f7-col>
                     <f7-col>

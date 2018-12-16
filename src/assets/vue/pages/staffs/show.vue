@@ -7,7 +7,6 @@
                 </f7-link>
             </f7-nav-right>
         </f7-navbar>
-        <f7-block-title>Staff Info: {{ staff.show.fullName }}</f7-block-title>
         <div class="avatar-upload" v-if="staff.show.avatarUrl">
             <div class="avatar-preview">
                 <div id="imagePreview"
@@ -36,6 +35,25 @@
                 </f7-list>
             </f7-card-content>
         </f7-card>
+        <f7-block>
+            <f7-row>
+                <f7-col>
+                    <f7-button fill @click.native="getEditRoute(staff.show.uuid)" big outline round>
+                        <i class="f7-icons size-16">edit</i> Edit
+                    </f7-button>
+                </f7-col>
+                <f7-col v-if="staff.show.id !== $store.state.auth.user.id">
+                    <f7-button fill color="red" big outline round @click.native="destroyStaff(staff.show)">
+                        <i class="f7-icons size-16">trash</i> Delete
+                    </f7-button>
+                </f7-col>
+                <f7-col>
+                    <f7-button fill @click="goBack" big outline round color="yellow">
+                        <i class="f7-icons size-16">chevron_left</i> Cancel
+                    </f7-button>
+                </f7-col>
+            </f7-row>
+        </f7-block>
     </f7-page>
 </template>
 <script>
@@ -63,6 +81,25 @@
         this.$f7router.navigate({
           name: 'staffs.edit',
           params: { uuid: uuid }
+        })
+      },
+      /**
+       * Method used to return to the previous page.
+       */
+      goBack () {
+        const self = this
+        self.$f7router.back()
+      },
+
+      /**
+       * Delete the resource
+       */
+      destroyStaff (staff) {
+        const self = this
+        const app = self.$f7
+        app.dialog.confirm('Are you sure to delete?', 'Confirm', () => {
+          app.preloader.show()
+          self.$store.dispatch('staff/destroy', staff)
         })
       }
     },
