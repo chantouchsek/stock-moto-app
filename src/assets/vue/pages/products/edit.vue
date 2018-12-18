@@ -91,7 +91,7 @@
             <f7-list-input
                     label="Price"
                     type="number"
-                    placeholder="Price is the amount a customer is willing to pay for a product or service."
+                    placeholder="The amount a customer is willing to pay."
                     required
                     validate
                     pattern="[0-9]*"
@@ -105,7 +105,7 @@
             <f7-list-input
                     label="Cost"
                     type="number"
-                    placeholder="Cost is typically the expense incurred for a product or service being sold by a company."
+                    placeholder="The expense incurred for a product"
                     required
                     validate
                     pattern="[0-9]*"

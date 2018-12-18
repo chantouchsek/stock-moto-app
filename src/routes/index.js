@@ -31,6 +31,7 @@ import SaleAdd from 'pages/sales/create'
 
 // Authentication Page
 import Login from 'pages/auth/login'
+import Account from 'pages/auth/account'
 
 // Categories Page
 import CategoryIndex from 'pages/categories/index'
@@ -130,6 +131,11 @@ export default [
         path: '/login/',
         component: Login,
         name: 'login'
+      },
+      {
+        path: '/account/',
+        component: Account,
+        name: 'account'
       },
       {
         path: '/staffs/',

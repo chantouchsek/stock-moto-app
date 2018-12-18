@@ -12,7 +12,8 @@
                     </f7-icon>
                 </f7-link>
                 <f7-link popover-open=".popover-menu">
-                    <img src="http://i.pravatar.cc/30?img=1" alt="User Avatar" class="avatar-upload br-100">
+                    <img :src="user ? user.avatarUrl : ''" :alt="user.fullName"
+                         class="avatar-upload br-100 user-avatar">
                 </f7-link>
             </f7-nav-right>
         </f7-navbar>
@@ -25,7 +26,8 @@
                             <div class="avatar-upload">
                                 <div class="avatar-preview">
                                     <div id="imagePreview"
-                                         style="background-image: url(http://i.pravatar.cc/500?img=7);"
+                                         v-if="user.avatarUrl"
+                                         :style="{ 'background-image': 'url(' + user.avatarUrl + ')' }"
                                     ></div>
                                 </div>
                                 <f7-block-title class="text-align-center">Stock Moto</f7-block-title>
@@ -53,14 +55,11 @@
         </f7-block>
         <f7-popover class="popover-menu">
             <f7-list>
-                <f7-list-item link="#" popover-close title="Account">
+                <f7-list-item link="/account/" popover-close title="Account">
                     <f7-icon slot="media" icon="fa fa-user"></f7-icon>
                 </f7-list-item>
                 <f7-list-item link="#" popover-close title="Setting">
                     <f7-icon slot="media" icon="fa fa-wrench"></f7-icon>
-                </f7-list-item>
-                <f7-list-item link="#" popover-close title="Password">
-                    <f7-icon slot="media" icon="fa fa-key"></f7-icon>
                 </f7-list-item>
                 <f7-list-item link="#" popover-close title="Language">
                     <f7-icon slot="media" icon="fa fa-language"></f7-icon>
@@ -75,6 +74,16 @@
 <script>
   export default {
     name: 'HomePage',
+    computed: {
+      user: {
+        get () {
+          if (this.$store.state.auth.user) {
+            return this.$store.state.auth.user
+          }
+          return { avatarUrl: '' }
+        }
+      }
+    },
     methods: {
       goToPage (page) {
         this.$f7router.navigate(page)

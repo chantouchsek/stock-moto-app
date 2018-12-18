@@ -7,39 +7,35 @@
                 </f7-link>
             </f7-nav-right>
         </f7-navbar>
-        <f7-card>
-            <f7-card-content>
-                <f7-list>
-                    <f7-list-item>Name: {{ product.name }}</f7-list-item>
-                    <f7-list-item>Cost: ${{ product.cost }}</f7-list-item>
-                    <f7-list-item>Price: ${{ product.price }}</f7-list-item>
-                    <f7-list-item>Qty: {{ product.qty }}</f7-list-item>
-                    <f7-list-item>Category: {{ product.category ? product.category.name : '' }}</f7-list-item>
-                    <f7-list-item>Make: {{ product.make ? product.make.name : '' }}</f7-list-item>
-                    <f7-list-item>Model: {{ product.model ? product.model.name : '' }}</f7-list-item>
-                    <f7-list-item>Supplier: {{ product.supplier ? product.supplier.name : '' }}</f7-list-item>
-                    <f7-list-item>Import from: {{ product.importFrom }}</f7-list-item>
-                    <f7-list-item>Date import: {{ product.dateImport }}</f7-list-item>
-                    <f7-list-item>Year: {{ product.year }}</f7-list-item>
-                    <f7-list-item>Colors:
-                        <span v-for="(color,index) in product.colors" :key="`color-index-${index}`">
+        <f7-list>
+            <f7-list-item>Name: {{ product.name }}</f7-list-item>
+            <f7-list-item>Cost: ${{ product.cost }}</f7-list-item>
+            <f7-list-item>Price: ${{ product.price }}</f7-list-item>
+            <f7-list-item>Qty: {{ product.qty }}</f7-list-item>
+            <f7-list-item>Category: {{ product.category ? product.category.name : '' }}</f7-list-item>
+            <f7-list-item>Make: {{ product.make ? product.make.name : '' }}</f7-list-item>
+            <f7-list-item>Model: {{ product.model ? product.model.name : '' }}</f7-list-item>
+            <f7-list-item>Supplier: {{ product.supplier ? product.supplier.name : '' }}</f7-list-item>
+            <f7-list-item>Import from: {{ product.importFrom }}</f7-list-item>
+            <f7-list-item>Date import: {{ product.dateImport }}</f7-list-item>
+            <f7-list-item>Year: {{ product.year }}</f7-list-item>
+            <f7-list-item>Colors:
+                <span v-for="(color,index) in product.colors" :key="`color-index-${index}`">
                             {{ color.name }}
                         </span>
-                    </f7-list-item>
-                    <f7-list>
-                        <f7-list-group v-for="(color,index) in product.colors" :key="`color-list-${index}`">
-                            <f7-list-item :title="color.name" group-title></f7-list-item>
-                            <f7-list-item :title="`Engine: ${color.engineNumber}`"></f7-list-item>
-                            <f7-list-item :title="`Frame: ${color.frameNumber}`"></f7-list-item>
-                            <f7-list-item :title="`Code: ${color.code}`"></f7-list-item>
-                            <f7-list-item :title="`Plate: ${color.plateNumber}`"></f7-list-item>
-                            <f7-list-item :title="`Sole on: ${color.soleOn}`"></f7-list-item>
-                            <f7-list-item :title="`Status:`" :badge="color.status" badge-color="green"></f7-list-item>
-                        </f7-list-group>
-                    </f7-list>
-                </f7-list>
-            </f7-card-content>
-        </f7-card>
+            </f7-list-item>
+            <f7-list>
+                <f7-list-group v-for="(color,index) in product.colors" :key="`color-list-${index}`">
+                    <f7-list-item :title="color.name" group-title></f7-list-item>
+                    <f7-list-item :title="`Engine: ${color.engineNumber}`"></f7-list-item>
+                    <f7-list-item :title="`Frame: ${color.frameNumber}`"></f7-list-item>
+                    <f7-list-item :title="`Code: ${color.code}`"></f7-list-item>
+                    <f7-list-item :title="`Plate: ${color.plateNumber}`"></f7-list-item>
+                    <f7-list-item :title="`Sole on: ${color.soleOn}`"></f7-list-item>
+                    <f7-list-item :title="`Status:`" :badge="color.status" badge-color="green"></f7-list-item>
+                </f7-list-group>
+            </f7-list>
+        </f7-list>
         <f7-block>
             <f7-row>
                 <f7-col>

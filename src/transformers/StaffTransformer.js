@@ -56,6 +56,7 @@ class StaffTransformer extends Transformer {
       email: staff.email,
       phone_number: staff.phoneNumber,
       password: staff.password,
+      password_confirmation: staff.passwordConfirmation,
       username: staff.username,
       gender: staff.gender,
       date_of_birth: staff.dateOfBirth,

@@ -10,6 +10,7 @@ import * as types from './mutation-types';
 import store from '@/assets/vuex';
 import Proxy from '@/proxies/AuthProxy';
 import AuthTransformer from '@/transformers/AuthTransformer';
+import StaffTransformer from 'src/transformers/StaffTransformer'
 
 const proxy = new Proxy();
 
@@ -80,7 +81,10 @@ export const saveToken = async ({ commit }, payload) => {
 export const fetchUser = async ({ commit }) => {
   try {
     const { data } = await Vue.$http.get('/user')
-    commit(types.FETCH_USER_SUCCESS, { user: data })
+    const user = {
+      user: StaffTransformer.fetch(data)
+    }
+    commit(types.FETCH_USER_SUCCESS, user)
   } catch (e) {
     commit(types.FETCH_USER_FAILURE)
   }
