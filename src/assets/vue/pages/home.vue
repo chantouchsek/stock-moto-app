@@ -38,7 +38,7 @@
             </f7-row>
             <f7-row>
                 <f7-col @click.native="goToPage('/sales/')">
-                    <f7-card content="Sells"></f7-card>
+                    <f7-card content="Sales"></f7-card>
                 </f7-col>
                 <f7-col>
                     <f7-card content="Buys"></f7-card>

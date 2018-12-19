@@ -27,7 +27,7 @@ import StaffInfo from 'pages/staffs/show'
 // Sales Page
 import SaleIndex from 'pages/sales/index'
 import SaleShow from 'pages/sales/show'
-import SaleAdd from 'pages/sales/create'
+import SaleCreate from 'pages/sales/create'
 
 // Authentication Page
 import Login from 'pages/auth/login'
@@ -163,12 +163,12 @@ export default [
         name: 'sales.index'
       },
       {
-        path: '/sales/add/',
-        component: SaleAdd,
+        path: '/sales-create',
+        component: SaleCreate,
         name: 'sales.create'
       },
       {
-        path: '/sales/:id/',
+        path: '/sales/:id',
         component: SaleShow,
         name: 'sales.show'
       },
