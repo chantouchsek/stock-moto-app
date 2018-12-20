@@ -35,9 +35,6 @@
           input: {
             scrollIntoViewOnFocus: true,
             scrollIntoViewCentered: true
-          },
-          panel: {
-            swipe: 'left'
           }
         }
       }
