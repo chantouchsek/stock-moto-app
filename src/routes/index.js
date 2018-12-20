@@ -168,7 +168,7 @@ export default [
         name: 'sales.create'
       },
       {
-        path: '/sales/:id',
+        path: '/sales/:uuid',
         component: SaleShow,
         name: 'sales.show'
       },

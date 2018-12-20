@@ -129,9 +129,8 @@ const updated = ({ commit }, staff) => {
   commit(types.UPDATED, StaffTransformer.fetch(staff))
 }
 
-
 /**
- * Action fired when an staff will be updated.
+ * Action fired when a staff will be updated.
  *
  * @param {function} commit  Commit function to update the store.
  * @param {int|string}   uuid  The staff that will be updated.
