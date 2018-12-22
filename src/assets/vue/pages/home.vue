@@ -52,6 +52,11 @@
                     <f7-card content="Reports"></f7-card>
                 </f7-col>
             </f7-row>
+            <f7-row>
+                <f7-col @click.native="goToPage('/expenses')">
+                    <f7-card content="Expense"></f7-card>
+                </f7-col>
+            </f7-row>
         </f7-block>
         <f7-popover class="popover-menu">
             <f7-list>

@@ -29,9 +29,6 @@
           id: 'com.moto.stock.system',
           version: '0.0.1',
           language: 'en',
-          view: {
-            pushState: false
-          },
           input: {
             scrollIntoViewOnFocus: true,
             scrollIntoViewCentered: true

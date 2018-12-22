@@ -209,7 +209,7 @@
        */
       updateStaff () {
         const self = this
-        self.$f7.preloader.show()
+        // self.$f7.preloader.show()
         self.$store.dispatch('staff/update', self.form)
       },
       /**
@@ -320,22 +320,6 @@
           })
         }
       })
-    },
-    watch: {
-      '$store.state.application': {
-        deep: true,
-        immediate: true,
-        handler (value) {
-          if (Object.keys(value.alert).length && value.alert.destroyed) {
-            const self = this
-            self.$f7router.back()
-          }
-          if (Object.keys(value.alert).length && value.alert.edited) {
-            const self = this
-            self.$f7router.back()
-          }
-        }
-      }
     }
   }
 </script>

@@ -7,7 +7,7 @@
             @ptr:refresh="reloadResource"
     >
         <f7-navbar back-link="Back" sliding>
-            <f7-nav-title>Stock Moto</f7-nav-title>
+            <f7-nav-title>Expenses</f7-nav-title>
             <f7-subnavbar :inner="false">
                 <f7-searchbar
                         :custom-search="true"
@@ -18,33 +18,17 @@
             </f7-subnavbar>
         </f7-navbar>
 
-        <f7-block-title>Staffs List</f7-block-title>
+        <f7-block-title>Expense List</f7-block-title>
 
-        <f7-list media-list>
-            <f7-list-item
-                    v-for="(user,index) in staff.all"
-                    swipeout
-                    @swipeout:delete="destroyResource(user)"
-                    :key="`staff-${index}`"
-                    after="Info"
-                    @click="getShowRoute(user.uuid)"
-                    link
-                    :title="user.fullName"
-                    :subtitle="`Position: ${user.fullName}`">
-                <img slot="media" :src="user.avatarUrl" width="44" :alt="user.fullName"/>
-                <f7-swipeout-actions right>
-                    <f7-swipeout-button delete>
-                        Delete
-                    </f7-swipeout-button>
-                    <f7-swipeout-button @click="getEditRoute(user.uuid)" color="green">
-                        Edit
-                    </f7-swipeout-button>
-                </f7-swipeout-actions>
-            </f7-list-item>
-        </f7-list>
-
-        <f7-list v-if="staff.all.length === 0">
-            <f7-list-item title="Nothing found"></f7-list-item>
+        <f7-list>
+            <f7-list-group v-for="(exp,index) in expense.all" :key="`expense-index-${index}`">
+                <f7-list-item :title="`${index}: $${exp.total}`" group-title></f7-list-item>
+                <f7-list-item v-for="(expense,index) in exp.expenses"
+                              :key="`expenses-key-${index}`"
+                              :title="expense.date"
+                              :after="expense.amount"
+                ></f7-list-item>
+            </f7-list-group>
         </f7-list>
 
         <f7-fab position="right-bottom"
@@ -60,12 +44,12 @@
   import debounce from 'lodash.debounce'
 
   export default {
-    name: 'StaffIndex',
+    name: 'ExpenseIndex',
     computed: {
-      ...mapState(['staff']),
+      ...mapState(['expense']),
       limit: {
         get () {
-          return this.staff.pagination.limit
+          return this.expense.pagination.limit
         },
         set (limit) {
           this.setLimit(limit)
@@ -73,7 +57,7 @@
       },
       currentPage: {
         get () {
-          return this.staff.pagination.currentPage
+          return this.expense.pagination.currentPage
         },
         set (page) {
           this.setPage(page)
@@ -84,7 +68,7 @@
       return {
         query: null,
         pageNumbers: [5, 10, 20, 30, 50, 500],
-        sortBy: 'first_name',
+        sortBy: 'amount',
         sortDesc: false,
         busy: false,
         allowInfinite: true,
@@ -98,7 +82,7 @@
        * @param {Number} page The page number.
        */
       setPage (page) {
-        this.$store.dispatch('staff/all', (proxy) => {
+        this.$store.dispatch('expense/all', (proxy) => {
           proxy.setParameter('page', page)
         })
       },
@@ -108,7 +92,7 @@
        * @param {Number} limit The limit of items being displayed.
        */
       setLimit (limit) {
-        this.$store.dispatch('staff/all', (proxy) => {
+        this.$store.dispatch('expense/all', (proxy) => {
           proxy.setParameter('limit', limit)
             .removeParameter('page')
         })
@@ -118,7 +102,7 @@
        * The results will be debounced using the lodash debounce method.
        */
       setQuery: debounce(function (query) {
-        this.$store.dispatch('staff/reload', (proxy) => {
+        this.$store.dispatch('expense/reload', (proxy) => {
           proxy.setParameters({
             'q': query,
             'order': this.sortDesc ? 'desc' : 'asc',
@@ -127,28 +111,28 @@
         })
       }, 500),
       /**
-       * Method used to get the staff route.
+       * Method used to get the expense route.
        *
-       * @param {Number} uuid The staff identifier.
+       * @param {Number} uuid The expense identifier.
        *
-       * @returns {Object} The staff route.
+       * @returns {Object} The expense route.
        */
       getEditRoute (uuid) {
         this.$f7router.navigate({
-          name: 'staffs.edit',
+          name: 'expenses.edit',
           params: { uuid: uuid }
         })
       },
       /**
-       * Method used to get the staff route.
+       * Method used to get the expense route.
        *
-       * @param {Number} uuid The staff identifier.
+       * @param {Number} uuid The expense identifier.
        *
-       * @returns {Object} The staff route.
+       * @returns {Object} The expense route.
        */
       getShowRoute (uuid) {
         this.$f7router.navigate({
-          name: 'staffs.show',
+          name: 'expenses.show',
           params: { uuid: uuid }
         })
       },
@@ -157,7 +141,7 @@
        */
       reloadResource: debounce(function (event, done) {
         const self = this;
-        self.$store.dispatch('staff/reload', (proxy) => {
+        self.$store.dispatch('expense/reload', (proxy) => {
           proxy.removeParameters(['q', 'order', 'sort', 'limit', 'page'])
         })
         done()
@@ -165,17 +149,17 @@
       /**
        * Delete the resource
        */
-      destroyResource (staff) {
+      destroyResource (expense) {
         const self = this
         self.$f7.preloader.show()
-        self.$store.dispatch('staff/destroy', staff)
+        self.$store.dispatch('expense/destroy', expense)
       },
       /**
        * Create the resource
        */
       redirectToCreatePage () {
         const self = this
-        self.$f7router.navigate({ name: 'staffs.create' })
+        self.$f7router.navigate({ name: 'expenses.create' })
       },
       /**
        * The method used to load more data on scroll
@@ -184,7 +168,7 @@
        */
       setQueryScroll: debounce(function () {
         const self = this
-        if (self.currentPage < self.staff.pagination.totalPages) {
+        if (self.currentPage < self.expense.pagination.totalPages) {
           self.currentPage++
           return
         }
@@ -198,12 +182,12 @@
       query (query) {
         this.setQuery(query)
       },
-      'staff': {
+      expense: {
         deep: true,
         immediate: true,
         handler (value) {
           const self = this
-          if (value.all.length === value.pagination.totalCount) {
+          if (Object.keys(value.all).length === value.pagination.totalCount) {
             self.showPreloader = false
             return
           }
@@ -217,7 +201,7 @@
     mounted () {
       this.$store.watch((state) => {
         if (state.auth.authenticated) {
-          this.$store.dispatch('staff/reload', (proxy) => {
+          this.$store.dispatch('expense/reload', (proxy) => {
             proxy.removeParameters(['q', 'order', 'sort'])
           })
         }
