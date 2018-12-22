@@ -26,7 +26,7 @@
                 <f7-list-item v-for="(expense,index) in exp.expenses"
                               :key="`expenses-key-${index}`"
                               :title="expense.date"
-                              :after="expense.amount"
+                              :after="`$${expense.amount}`"
                 ></f7-list-item>
             </f7-list-group>
         </f7-list>
