@@ -75,6 +75,8 @@ import ColorEdit from 'pages/colors/edit'
 // Expense
 import ExpenseIndex from 'pages/expenses/index'
 import ExpenseCreate from 'pages/expenses/create'
+import ExpenseShow from 'pages/expenses/show'
+import ExpenseEdit from 'pages/expenses/edit'
 
 /**
  * The routes
@@ -300,6 +302,16 @@ export default [
         path: '/expenses/create',
         name: 'expenses.create',
         component: ExpenseCreate
+      },
+      {
+        path: '/expenses/:uuid/show',
+        name: 'expenses.show',
+        component: ExpenseShow
+      },
+      {
+        path: '/expenses/:uuid/edit',
+        name: 'expenses.edit',
+        component: ExpenseEdit
       }
     ]
   }

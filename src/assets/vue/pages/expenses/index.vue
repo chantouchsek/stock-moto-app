@@ -24,11 +24,28 @@
             <f7-list-group v-for="(exp,index) in expense.all" :key="`expense-index-${index}`">
                 <f7-list-item :title="`${index}: $${exp.total}`" group-title></f7-list-item>
                 <f7-list-item v-for="(expense,index) in exp.expenses"
+                              swipeout
+                              @swipeout:delete="destroyExpense(expense)"
                               :key="`expenses-key-${index}`"
                               :title="expense.date"
                               :after="`$${expense.amount}`"
-                ></f7-list-item>
+                              @click="getShowRoute(expense.uuid)"
+                              link
+                >
+                    <f7-swipeout-actions right>
+                        <f7-swipeout-button delete>
+                            Delete
+                        </f7-swipeout-button>
+                        <f7-swipeout-button color="green" @click="getEditRoute(expense.uuid)">
+                            Edit
+                        </f7-swipeout-button>
+                    </f7-swipeout-actions>
+                </f7-list-item>
             </f7-list-group>
+        </f7-list>
+
+        <f7-list v-if="Object.keys(expense.all).length === 0">
+            <f7-list-item title="Nothing found"></f7-list-item>
         </f7-list>
 
         <f7-fab position="right-bottom"
@@ -149,7 +166,7 @@
       /**
        * Delete the resource
        */
-      destroyResource (expense) {
+      destroyExpense (expense) {
         const self = this
         self.$f7.preloader.show()
         self.$store.dispatch('expense/destroy', expense)

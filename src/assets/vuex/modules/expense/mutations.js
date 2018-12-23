@@ -8,6 +8,7 @@
 import store from '@/assets/vuex'
 import {
   ALL,
+  DETAIL,
   RELOAD,
   CREATED,
   UPDATED,
@@ -37,6 +38,17 @@ export default {
   [RELOAD] (state, { expenses, pagination }) {
     state.all = expenses
     state.pagination = pagination
+  },
+
+
+  /**
+   * Mutation to update the store with the fetched sale.
+   *
+   * @param {Object} state      The current state of the store.
+   * @param {Array}  detail    The fetched sale.
+   */
+  [DETAIL] (state, { detail }) {
+    state.detail = detail
   },
 
   /**

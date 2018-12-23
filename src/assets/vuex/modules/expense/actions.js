@@ -10,6 +10,7 @@ import store from '@/assets/vuex'
 import Proxy from '@/proxies/ExpenseProxy'
 import ExpenseTransformer from '@/transformers/ExpenseTransformer'
 import PaginationTransformer from '@/transformers/PaginationTransformer'
+import SaleTransformer from 'src/transformers/SaleTransformer'
 
 const proxy = new Proxy()
 
@@ -167,8 +168,31 @@ const destroyed = ({ commit }, expense) => {
   commit(types.DESTROYED, ExpenseTransformer.fetch(expense))
 }
 
+/**
+ * Action fired when a expense will be updated.
+ *
+ * @param {function} commit  Commit function to update the store.
+ * @param {int|string}   uuid  The expense that will be updated.
+ */
+const detail = ({ commit }, uuid) => {
+  proxy.find(uuid)
+    .then((response) => {
+      const data = {
+        detail: ExpenseTransformer.fetch(response)
+      }
+      commit(types.DETAIL, data)
+    })
+    .catch(() => {
+      store.dispatch('application/addAlert', {
+        type: 'danger',
+        message: 'The expense could not be fetched.'
+      })
+    })
+}
+
 export default {
   all,
+  detail,
   reload,
   create,
   created,
