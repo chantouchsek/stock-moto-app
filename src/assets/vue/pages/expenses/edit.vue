@@ -1,7 +1,7 @@
 <template>
     <f7-page>
-        <f7-navbar title="Add Expense" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Add Expense</f7-block-title>
+        <f7-navbar title="Edit Expense" back-link="Back" sliding></f7-navbar>
+        <f7-block-title>Edit Expense</f7-block-title>
         <f7-list no-hairlines-md form>
             <f7-list-input
                     label="Amount"
@@ -159,8 +159,10 @@
          */
         proxy.upload(self.form.uuid, formData).then((response) => {
           self.form.files = response.data.files
+          self.files = []
         }).catch((error) => {
           self.$f7.dialog.alert(error.message, 'Warning!')
+          self.files = []
         })
       },
       /**

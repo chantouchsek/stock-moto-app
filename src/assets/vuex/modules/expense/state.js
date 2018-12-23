@@ -6,7 +6,7 @@
  */
 
 export default {
-  all: [],
+  all: {},
   pagination: {
     totalCount: 0,
     totalPages: 0,
