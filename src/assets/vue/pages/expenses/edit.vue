@@ -62,12 +62,11 @@
 
             <f7-list-item v-for="(file,index) in form.files" :key="`attachments-index${index}`"
                           :title="`${index + 1}. ${file.file_name}`"
-                          close
                           overswipe
                           swipeout
             >
                 <f7-swipeout-actions right>
-                    <f7-swipeout-button color="red" @click="destroyFile(file.id, index)">
+                    <f7-swipeout-button color="red" @click="destroyFile(file.id, index)" close>
                         Delete
                     </f7-swipeout-button>
                 </f7-swipeout-actions>
