@@ -78,6 +78,9 @@ import ExpenseCreate from 'pages/expenses/create'
 import ExpenseShow from 'pages/expenses/show'
 import ExpenseEdit from 'pages/expenses/edit'
 
+// Reports
+import ReportIndex from 'pages/reports/index'
+
 /**
  * The routes
  *
@@ -312,6 +315,11 @@ export default [
         path: '/expenses/:uuid/edit',
         name: 'expenses.edit',
         component: ExpenseEdit
+      },
+      {
+        path: '/reports',
+        name: 'reports.edit',
+        component: ReportIndex
       }
     ]
   }
