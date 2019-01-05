@@ -21,6 +21,15 @@ class ProductProxy extends Proxy {
   destroyColor (id, colorId) {
     return this.submit('delete', `/${this.endpoint}/${id}/${colorId}`)
   }
+
+  /**
+   * Method used to fetch a given item.
+   *
+   * @returns {Promise} The result in a promise.
+   */
+  findBy () {
+    return this.submit('get', `/${this.endpoint}/filter`)
+  }
 }
 
 export default ProductProxy

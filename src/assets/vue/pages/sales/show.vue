@@ -12,13 +12,11 @@
             <f7-list-item>Tax: {{ sale.detail.tax }}</f7-list-item>
             <f7-list-item>Tax amount: {{ sale.detail.taxAmount }}</f7-list-item>
             <f7-list-item>Total: {{ sale.detail.total }}</f7-list-item>
-            <f7-block-title>Products</f7-block-title>
+            <f7-block-title>Product</f7-block-title>
             <f7-list>
-                <f7-list-item v-for="(product,index) in sale.detail.products"
-                              :after="`Qty: ${product.qty}`"
-                              :header="`Name: ${product.name}`"
-                              :footer="`Additional price: ${product.additional_price}`"
-                              :key="`product-index-${index}`"
+                <f7-list-item v-if="sale.detail.product"
+                              :header="`Name: ${sale.detail.product.name}`"
+                              :key="`product-index-${sale.detail.product.id}`"
                 ></f7-list-item>
             </f7-list>
         </f7-list>

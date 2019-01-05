@@ -32,7 +32,8 @@
           input: {
             scrollIntoViewOnFocus: true,
             scrollIntoViewCentered: true
-          }
+          },
+          fastClicks: true
         }
       }
     },

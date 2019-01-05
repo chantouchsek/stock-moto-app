@@ -26,9 +26,10 @@ class SaleTransformer extends Transformer {
       tax: sale.tax,
       taxAmount: sale.tax_amount,
       createdAt: sale.created_at,
-      products: sale.products,
-      customer: sale.customer,
-      user: sale.user
+      product: sale.product,
+      customerName: sale.customer_name,
+      user: sale.user,
+      date: sale.date
     })
   }
 
@@ -41,12 +42,17 @@ class SaleTransformer extends Transformer {
     return {
       id: sale.id,
       customer_id: sale.customerId,
-      user_id: sale.userId,
+      engine_number: sale.engineNumber,
       is_in_lack: sale.isInLack,
       in_lack_amount: sale.inLackAmount,
       total: sale.total,
       tax: sale.tax,
-      tax_amount: sale.taxAmount
+      tax_amount: sale.taxAmount,
+      product_id: sale.productId,
+      customer_name: sale.customerName,
+      amount: sale.amount,
+      price: sale.price,
+      date: sale.date
     }
   }
 }

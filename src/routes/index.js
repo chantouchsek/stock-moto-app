@@ -247,7 +247,7 @@ export default [
         component: ModelEdit
       },
       {
-        path: '/customers/',
+        path: '/customers',
         name: 'customers.index',
         component: CustomerIndex
       },

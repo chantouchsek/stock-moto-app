@@ -19,22 +19,6 @@
             <f7-list-item>Import from: {{ product.importFrom }}</f7-list-item>
             <f7-list-item>Date import: {{ product.dateImport }}</f7-list-item>
             <f7-list-item>Year: {{ product.year }}</f7-list-item>
-            <f7-list-item>Colors:
-                <span v-for="(color,index) in product.colors" :key="`color-index-${index}`">
-                            {{ color.name }}
-                        </span>
-            </f7-list-item>
-            <f7-list>
-                <f7-list-group v-for="(color,index) in product.colors" :key="`color-list-${index}`">
-                    <f7-list-item :title="color.name" group-title></f7-list-item>
-                    <f7-list-item :title="`Engine: ${color.engineNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Frame: ${color.frameNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Code: ${color.code}`"></f7-list-item>
-                    <f7-list-item :title="`Plate: ${color.plateNumber}`"></f7-list-item>
-                    <f7-list-item :title="`Sole on: ${color.soleOn}`"></f7-list-item>
-                    <f7-list-item :title="`Status:`" :badge="color.status" badge-color="green"></f7-list-item>
-                </f7-list-group>
-            </f7-list>
         </f7-list>
         <f7-block>
             <f7-row>

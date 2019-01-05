@@ -20,41 +20,57 @@
 
         <f7-block>
             <f7-row>
-                <f7-col>
+                <f7-col @click.native="goToPage('/sales/')">
                     <f7-card>
                         <f7-card-content>
-                            <div class="avatar-upload">
-                                <div class="avatar-preview">
-                                    <div id="imagePreview"
-                                         v-if="user.avatarUrl"
-                                         :style="{ 'background-image': 'url(' + user.avatarUrl + ')' }"
-                                    ></div>
-                                </div>
-                                <f7-block-title class="text-align-center">Stock Moto</f7-block-title>
-                            </div>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/110')"></div>
+                            <f7-block-title class="text-align-center mt-1">Sales</f7-block-title>
+                        </f7-card-content>
+                    </f7-card>
+                </f7-col>
+                <f7-col @click.native="goToPage('/products/')">
+                    <f7-card>
+                        <f7-card-content>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/109')"></div>
+                            <f7-block-title class="text-align-center mt-1">Buys</f7-block-title>
                         </f7-card-content>
                     </f7-card>
                 </f7-col>
             </f7-row>
             <f7-row>
-                <f7-col @click.native="goToPage('/sales/')">
-                    <f7-card content="Sales"></f7-card>
-                </f7-col>
-                <f7-col @click.native="goToPage('/products/')">
-                    <f7-card content="Buys"></f7-card>
-                </f7-col>
-            </f7-row>
-            <f7-row>
                 <f7-col @click.native="goToPage('/staffs/')">
-                    <f7-card content="Staffs"></f7-card>
+                    <f7-card>
+                        <f7-card-content>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/101')"></div>
+                            <f7-block-title class="text-align-center mt-1">Staffs</f7-block-title>
+                        </f7-card-content>
+                    </f7-card>
                 </f7-col>
                 <f7-col @click.native="goToPage('/reports')">
-                    <f7-card content="Reports"></f7-card>
+                    <f7-card>
+                        <f7-card-content>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/102')"></div>
+                            <f7-block-title class="text-align-center mt-1">Reports</f7-block-title>
+                        </f7-card-content>
+                    </f7-card>
                 </f7-col>
             </f7-row>
             <f7-row>
                 <f7-col @click.native="goToPage('/expenses')">
-                    <f7-card content="Expense"></f7-card>
+                    <f7-card>
+                        <f7-card-content>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/103')"></div>
+                            <f7-block-title class="text-align-center mt-1">Expenses</f7-block-title>
+                        </f7-card-content>
+                    </f7-card>
+                </f7-col>
+                <f7-col @click.native="goToPage('/customers')">
+                    <f7-card>
+                        <f7-card-content>
+                            <div class="img-circular" style="background-image: url('http://i.pravatar.cc/150')"></div>
+                            <f7-block-title class="text-align-center mt-1">Customers</f7-block-title>
+                        </f7-card-content>
+                    </f7-card>
                 </f7-col>
             </f7-row>
         </f7-block>

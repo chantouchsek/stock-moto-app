@@ -74,3 +74,18 @@
   width: 30px;
   height: 30px;
 }
+
+.img-circular {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  display: block;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  margin: 0 auto;
+}
+
+.mt-1 {
+  margin-top: 1em !important;
+}

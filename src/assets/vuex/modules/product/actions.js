@@ -49,11 +49,18 @@ const reload = async ({ commit }, fn = null) => {
   await proxy.all()
     .then((response) => {
       const data = {
-        products: ProductTransformer.fetchCollection(response.data),
+        products: response.first ? ProductTransformer.fetch(response.data) : ProductTransformer.fetchCollection(response.data),
         pagination: PaginationTransformer.fetch(response.pagination)
       }
 
       commit(types.RELOAD, data)
+    })
+    .catch(() => {
+      const data = {
+        empty: true
+      }
+
+      commit(types.FETCH_FAILED, data)
     })
 }
 
@@ -162,8 +169,40 @@ const destroyed = ({ commit }, product) => {
   commit(types.DESTROYED, ProductTransformer.fetch(product))
 }
 
+/**
+ * Action fired when a product will be updated.
+ *
+ * @param {function} commit  Commit function to update the store.
+ * @param {function} fn     Callback to edit the parameters on the proxy.
+ */
+const detail = ({ commit }, fn = null) => {
+  if (typeof fn === 'function') {
+    fn(proxy)
+  }
+
+  proxy.findBy()
+    .then((response) => {
+      const data = {
+        product: ProductTransformer.fetch(response)
+      }
+      commit(types.SHOW, data)
+    })
+    .catch(() => {
+      store.dispatch('application/addAlert', {
+        type: 'danger',
+        message: 'The product could not be fetched.'
+      })
+      const data = {
+        empty: true
+      }
+
+      commit(types.FETCH_FAILED, data)
+    })
+}
+
 export default {
   all,
+  detail,
   reload,
   create,
   created,

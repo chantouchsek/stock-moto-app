@@ -8,10 +8,12 @@
 import store from '@/assets/vuex'
 import {
   ALL,
+  SHOW,
   RELOAD,
   CREATED,
   UPDATED,
-  DESTROYED
+  DESTROYED,
+  FETCH_FAILED
 } from './mutation-types'
 
 export default {
@@ -37,6 +39,32 @@ export default {
   [RELOAD] (state, { products, pagination }) {
     state.all = products
     state.pagination = pagination
+  },
+
+  /**
+   * Mutation to update the store with the fetched product.
+   *
+   * @param {Object} state      The current state of the store.
+   * @param {Array}  product    The fetched products.
+   */
+  [SHOW] (state, { product }) {
+    state.detail = product
+  },
+
+  /**
+   * Mutation to update the store with the fetched products.
+   *
+   * @param {Object} state      The current state of the store.
+   * @param {boolean}  empty    The fetched products.
+   */
+  [FETCH_FAILED] (state, { empty }) {
+    state.detail = {}
+    state.pagination = {
+      totalCount: 0,
+      totalPages: 0,
+      currentPage: 1,
+      limit: 5
+    }
   },
 
   /**

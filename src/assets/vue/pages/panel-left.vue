@@ -1,8 +1,5 @@
 <template>
     <f7-page>
-        <f7-block>
-            <img src="http://i.pravatar.cc/50?img=1" alt="User Avatar" class="avatar-upload br-100">
-        </f7-block>
         <f7-block-title>Main Navigation</f7-block-title>
         <f7-list>
             <f7-list-item link="/sales/" title="Sales" panel-close>
@@ -35,7 +32,7 @@
             <f7-list-item link="/products/" title="Products" panel-close>
                 <f7-icon slot="media" icon="fa fa-motorcycle"></f7-icon>
             </f7-list-item>
-            <f7-list-item link="/customers/" title="Customers" panel-close>
+            <f7-list-item link="/customers" title="Customers" panel-close>
                 <f7-icon slot="media" icon="fa fa-user"></f7-icon>
             </f7-list-item>
             <f7-list-item link="/form/" title="Attendances" panel-close>
