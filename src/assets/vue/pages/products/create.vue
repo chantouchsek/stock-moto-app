@@ -316,7 +316,7 @@
         handler (value) {
           if (Object.keys(value.alert).length && value.alert.created) {
             const self = this
-            self.form = {}
+            self.$f7router.back()
             self.$store.dispatch('application/removeErrors')
           }
         }
