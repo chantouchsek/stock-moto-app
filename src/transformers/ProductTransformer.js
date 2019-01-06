@@ -40,6 +40,7 @@ class ProductTransformer extends Transformer {
       frameNumber: product.frame_number,
       status: product.status,
       soleOn: product.sole_on,
+      file: product.file
     })
   }
 
@@ -68,7 +69,8 @@ class ProductTransformer extends Transformer {
       code: product.code,
       year: product.year,
       import_from: product.importFrom,
-      date_import: product.dateImport
+      date_import: product.dateImport,
+      file: product.file
     }
   }
 }

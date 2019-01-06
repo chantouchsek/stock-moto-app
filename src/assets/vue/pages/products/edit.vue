@@ -180,21 +180,7 @@
             </f7-list-input>
 
             <f7-list-input
-                    label="Date Import"
-                    type="date"
-                    placeholder="The product imported"
-                    error-message="Select a valid date please!"
-                    required
-                    validate
-                    pattern="[0-9]*"
-                    clear-button
-                    :value="form.dateImport"
-                    @input="form.dateImport = $event.target.value"
-            >
-            </f7-list-input>
-
-            <f7-list-input
-                    v-if="form.status ==='second'"
+                    v-if="form.status ==='second_hand'"
                     label="Plate number"
                     type="text"
                     placeholder="Product plate number"
@@ -218,6 +204,20 @@
                 <span slot="info"></span>
             </f7-list-input>
 
+            <f7-list-input
+                    label="Date Import"
+                    type="date"
+                    placeholder="The product imported"
+                    error-message="Select a valid date please!"
+                    required
+                    validate
+                    pattern="[0-9]*"
+                    clear-button
+                    :value="form.dateImport"
+                    @input="form.dateImport = $event.target.value"
+            >
+            </f7-list-input>
+
             <f7-list-item radio
                           title="New"
                           name="status"
@@ -233,6 +233,20 @@
                           :checked="form.status === 'second'"
                           @change="form.status = $event.target.value"
             ></f7-list-item>
+
+            <f7-list-input
+                    label="Features Image"
+                    type="file"
+                    accept="image/*"
+                    ref="files"
+                    @change="handleFilesUpload($event)"
+            >
+                <span slot="info"></span>
+            </f7-list-input>
+
+            <f7-list-item v-if="form.file">
+                <img slot="media" :src="form.file" width="100"/>
+            </f7-list-item>
 
             <f7-block>
                 <f7-row>
@@ -322,6 +336,29 @@
         const self = this
         self.$f7router.back()
         self.$store.dispatch('application/removeErrors')
+      },
+      /*
+        Removes a select file the user has uploaded
+      */
+      removeFile () {
+        this.form.file = ''
+      },
+      /*
+       Handles the uploading of files
+     */
+      handleFilesUpload (e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return
+        this.createImage(files[0])
+      },
+      createImage (file) {
+        let reader = new FileReader()
+        let vm = this
+        reader.onload = (e) => {
+          vm.form.file = e.target.result
+        }
+        reader.readAsDataURL(file)
       }
     },
     /**
@@ -347,6 +384,9 @@
         proxy.removeParameters(['q', 'order', 'sort', 'page'])
       })
     },
+    /**
+     * Set all available watcher in here.
+     */
     watch: {
       '$store.state.application': {
         deep: true,
