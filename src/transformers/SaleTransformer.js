@@ -29,7 +29,8 @@ class SaleTransformer extends Transformer {
       product: sale.product,
       customerName: sale.customer_name,
       user: sale.user,
-      date: sale.date
+      date: sale.date,
+      files: sale.files
     })
   }
 
@@ -52,7 +53,8 @@ class SaleTransformer extends Transformer {
       customer_name: sale.customerName,
       amount: sale.amount,
       price: sale.price,
-      date: sale.date
+      date: sale.date,
+      files: sale.files
     }
   }
 }

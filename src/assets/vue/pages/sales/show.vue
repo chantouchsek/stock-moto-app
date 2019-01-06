@@ -18,6 +18,13 @@
                               :key="`product-index-${sale.detail.product.id}`"
                 ></f7-list-item>
             </f7-list>
+            <f7-block-title>Attachments: </f7-block-title>
+            <f7-list>
+                <f7-list-item v-for="(file, index) in sale.detail.files"
+                              :header="`Name: ${file.file_name}`"
+                              :key="`file-index-${index}`"
+                ></f7-list-item>
+            </f7-list>
         </f7-list>
     </f7-page>
 </template>

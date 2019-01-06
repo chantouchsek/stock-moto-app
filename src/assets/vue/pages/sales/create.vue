@@ -129,6 +129,29 @@
                 <span slot="info"></span>
             </f7-list-input>
 
+            <f7-list-input
+                    label="Attachments"
+                    type="file"
+                    accept="image/*,.xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                    ref="files"
+                    multiple
+                    @change="handleFilesUpload($event)"
+            >
+                <span slot="info"></span>
+            </f7-list-input>
+
+            <f7-list-item
+                    v-for="(file,index) in sale.files"
+                    swipeout
+                    :title="file.name"
+                    @swipeout:delete="removeFile(index)"
+                    :key="`file-index-${index}`"
+            >
+                <f7-swipeout-actions right>
+                    <f7-swipeout-button delete confirm-text="Are you sure you want to delete this item?">Delete
+                    </f7-swipeout-button>
+                </f7-swipeout-actions>
+            </f7-list-item>
 
         </f7-list>
         <f7-block>
@@ -152,7 +175,14 @@
     },
     data () {
       return {
-        sale: { isInLack: '' },
+        sale: {
+          isInLack: 0,
+          files: [],
+          total: 0,
+          tax: 0,
+          taxAmount: 0,
+          customerId: ''
+        },
         disabled: true
       }
     },
@@ -193,6 +223,29 @@
         this.disabled = !e
         if (e) return this.sale.isInLack = 1
         return this.sale.isInLack = 0
+      },
+      /*
+        Handles the uploading of files
+      */
+      handleFilesUpload (e) {
+        let uploadedFiles = e.target.files
+        if (!uploadedFiles.length) {
+          return false
+        }
+
+        /*
+          Adds the uploaded file to the files array
+        */
+        for (let i = 0; i < uploadedFiles.length; i++) {
+          this.sale.files.push(uploadedFiles[i])
+        }
+      },
+
+      /*
+        Removes a select file the user has uploaded
+      */
+      removeFile (key) {
+        this.sale.files.splice(key, 1)
       }
     },
     /**
