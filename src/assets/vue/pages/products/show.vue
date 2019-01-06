@@ -11,7 +11,6 @@
             <f7-list-item>Name: {{ product.name }}</f7-list-item>
             <f7-list-item>Cost: ${{ product.cost }}</f7-list-item>
             <f7-list-item>Price: ${{ product.price }}</f7-list-item>
-            <f7-list-item>Qty: {{ product.qty }}</f7-list-item>
             <f7-list-item>Category: {{ product.category ? product.category.name : '' }}</f7-list-item>
             <f7-list-item>Make: {{ product.make ? product.make.name : '' }}</f7-list-item>
             <f7-list-item>Model: {{ product.model ? product.model.name : '' }}</f7-list-item>

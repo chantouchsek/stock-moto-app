@@ -1,7 +1,6 @@
 <template>
     <f7-page>
         <f7-navbar title="Sale Detail" back-link="Back" sliding></f7-navbar>
-        <f7-block-title>Sale Detail</f7-block-title>
         <f7-list>
             <f7-list-item>Sale #: {{ sale.detail.id }}</f7-list-item>
             <f7-list-item>Sale By: {{ sale.detail.user ? sale.detail.user.full_name : '' }}</f7-list-item>

@@ -180,6 +180,20 @@
             </f7-list-input>
 
             <f7-list-input
+                    label="Date Import"
+                    type="date"
+                    placeholder="The product imported"
+                    error-message="Select a valid date please!"
+                    required
+                    validate
+                    pattern="[0-9]*"
+                    clear-button
+                    :value="form.dateImport"
+                    @input="form.dateImport = $event.target.value"
+            >
+            </f7-list-input>
+
+            <f7-list-input
                     v-if="form.status ==='second'"
                     label="Plate number"
                     type="text"
@@ -215,7 +229,7 @@
             <f7-list-item radio
                           title="Second hand"
                           name="status"
-                          value="second"
+                          value="second_hand"
                           :checked="form.status === 'second'"
                           @change="form.status = $event.target.value"
             ></f7-list-item>

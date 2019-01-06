@@ -208,6 +208,20 @@
                 <span slot="info"></span>
             </f7-list-input>
 
+            <f7-list-input
+                    label="Date Import"
+                    type="date"
+                    placeholder="The product imported"
+                    error-message="Select a valid date please!"
+                    required
+                    validate
+                    pattern="[0-9]*"
+                    clear-button
+                    :value="form.dateImport"
+                    @input="form.dateImport = $event.target.value"
+            >
+            </f7-list-input>
+
             <f7-list-item radio
                           title="New"
                           name="status"

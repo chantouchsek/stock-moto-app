@@ -7,7 +7,7 @@
             <f7-list-input
                     label="Engine number"
                     type="text"
-                    placeholder="Enter product engine number to search"
+                    placeholder="Enter product engine number"
                     validate
                     pattern="[0-9]*"
                     clear-button
@@ -34,7 +34,7 @@
             <f7-list-input
                     label="Frame number"
                     type="text"
-                    placeholder="Enter product frame number to search"
+                    placeholder="Enter product frame number"
                     :value="sale.frameNumber = product.detail.frameNumber"
                     disabled
             >
@@ -106,6 +106,30 @@
                 <span slot="info"></span>
             </f7-list-input>
 
+            <f7-list-item>
+                <span>Is in lack</span>
+                <f7-toggle name="isInLack"
+                           :value="sale.isInLack"
+                           @toggle:change="toggleChange"
+                ></f7-toggle>
+            </f7-list-item>
+
+            <f7-list-input
+                    label="In Lack Amount"
+                    type="number"
+                    placeholder="Enter amount"
+                    required
+                    validate
+                    pattern="[0-9]*"
+                    clear-button
+                    :value="sale.inLackAmount"
+                    @input="sale.inLackAmount = $event.target.value"
+                    :disabled="disabled"
+            >
+                <span slot="info"></span>
+            </f7-list-input>
+
+
         </f7-list>
         <f7-block>
             <f7-row>
@@ -128,7 +152,8 @@
     },
     data () {
       return {
-        sale: {}
+        sale: { isInLack: '' },
+        disabled: true
       }
     },
     methods: {
@@ -163,7 +188,12 @@
             first: true
           }).removeParameter('page')
         })
-      }, 500)
+      }, 500),
+      toggleChange (e) {
+        this.disabled = !e
+        if (e) return this.sale.isInLack = 1
+        return this.sale.isInLack = 0
+      }
     },
     /**
      * This method will be fired once the application has been mounted.
@@ -189,6 +219,15 @@
             const self = this
             self.$f7router.back()
             self.$store.dispatch('application/removeErrors')
+          }
+        }
+      },
+      'sale.isInLack': {
+        deep: true,
+        immediate: true,
+        handler (value) {
+          if (!value) {
+            this.sale.inLackAmount = ''
           }
         }
       }
